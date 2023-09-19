@@ -1,0 +1,19 @@
+{
+  "name": "pocket-platformer-exporter",
+  "version": "0.0.1",
+  "description": "Converts html files exported by pocket-platformer (https://the-l0bster.itch.io/pocket-platformer) into formats that should be more easily exported to other engines. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haroldo-ok/pocket-platformer-exporter.git"
+  },
+  "author": "Haroldo O. Pinheiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haroldo-ok/pocket-platformer-exporter/issues"
+  },
+  "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme"
+}

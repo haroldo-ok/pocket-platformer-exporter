@@ -19,22 +19,15 @@ const parseJsValue = original => JSON.parse(original.trim()
 const parseSnippet = (snippet, regex) => Object.fromEntries([...snippet.matchAll(regex)]
 	.map(match => [match[1], parseJsValue(match[2])]));
 	
+const parseSection = (html, delimiter, regex) => parseSnippet(extractJsSnippet(html, delimiter), regex);
+	
 	
 const exampleHtml = fs.readFileSync('example-project.html', 'utf8');
 
-const worldSnippet = extractJsSnippet(exampleHtml, 'initialLevelData');
-const worldData = parseSnippet(worldSnippet, /WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm);
-	
-const spriteSnippet = extractJsSnippet(exampleHtml, 'changedSprites');
-const spriteData = parseSnippet(spriteSnippet, /SpritePixelArrays\["(.*?)"\]\s*=\s*(.*?);/g);
+const world = parseSection(exampleHtml, 'initialLevelData', /WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm);
+const sprites = parseSection(exampleHtml, 'changedSprites', /SpritePixelArrays\["(.*?)"\]\s*=\s*(.*?);/g);
+const player = parseSection(exampleHtml, 'changedPlayerAttributes', /player\["(.*?)"\]\s*=\s*(.*?);/g);
 
-const playerSnippet = extractJsSnippet(exampleHtml, 'changedPlayerAttributes');
-const playerData = parseSnippet(playerSnippet, /player\["(.*?)"\]\s*=\s*(.*?);/g);
-
-fs.writeFileSync('generated.json', stringify({ 
-	world: worldData,
-	sprites: spriteData,
-	player: playerData
-} , { maxLength: 160 }));
+fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLength: 160 }));
 	
 console.log('See "generated.json"');

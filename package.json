@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/haroldo-ok/pocket-platformer-exporter/issues"
   },
-  "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme"
+  "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme",
+  "dependencies": {
+    "json-stringify-pretty-compact": "^3.0.0"
+  }
 }

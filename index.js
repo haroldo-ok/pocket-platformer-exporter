@@ -1,4 +1,6 @@
-var fs = require('fs');
+const fs = require('fs');
+const stringify = require('json-stringify-pretty-compact');
+
 
 // Adapted from: https://lage.us/Javascript-Get-String-Between-Strings.html
 const stringBetweenStrings = (str, startStr, endStr) => {
@@ -22,6 +24,6 @@ const snippet = extractJsSnippet(exampleHtml, 'initialLevelData');
 const worldData = Object.fromEntries([...snippet.matchAll(/WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm)]
 	.map(match => [match[1], parseJsValue(match[2])]));
 	
-fs.writeFileSync('generated.json', JSON.stringify(worldData, null, '\t'));
+fs.writeFileSync('generated.json', stringify(worldData, { maxLength: 160 }));
 	
 console.log('See "generated.json"');

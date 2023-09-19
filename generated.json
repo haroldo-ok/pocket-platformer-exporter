@@ -2023,5 +2023,20 @@
         }
       ]
     }
+  },
+  "player": {
+    "groundAcceleration": 0.8,
+    "air_acceleration": 0.8,
+    "maxSpeed": 3.2,
+    "groundFriction": 0.65,
+    "air_friction": 0.75,
+    "jumpSpeed": 0.44,
+    "maxFallSpeed": 16,
+    "maxJumpFrames": 18,
+    "jumpChecked": true,
+    "wallJumpChecked": true,
+    "doubleJumpChecked": false,
+    "dashChecked": false,
+    "runChecked": false
   }
 }

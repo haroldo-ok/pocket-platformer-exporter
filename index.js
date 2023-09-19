@@ -28,9 +28,13 @@ const worldData = parseSnippet(worldSnippet, /WorldDataHandler\.(\w+)\s*=\s*(.*)
 const spriteSnippet = extractJsSnippet(exampleHtml, 'changedSprites');
 const spriteData = parseSnippet(spriteSnippet, /SpritePixelArrays\["(.*?)"\]\s*=\s*(.*?);/g);
 
+const playerSnippet = extractJsSnippet(exampleHtml, 'changedPlayerAttributes');
+const playerData = parseSnippet(playerSnippet, /player\["(.*?)"\]\s*=\s*(.*?);/g);
+
 fs.writeFileSync('generated.json', stringify({ 
-		world: worldData,
-		sprites: spriteData
-	} , { maxLength: 160 }));
+	world: worldData,
+	sprites: spriteData,
+	player: playerData
+} , { maxLength: 160 }));
 	
 console.log('See "generated.json"');

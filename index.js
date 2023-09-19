@@ -22,10 +22,15 @@ const parseSnippet = (snippet, regex) => Object.fromEntries([...snippet.matchAll
 	
 const exampleHtml = fs.readFileSync('example-project.html', 'utf8');
 
-const snippet = extractJsSnippet(exampleHtml, 'initialLevelData');
-
-const worldData = parseSnippet(snippet, /WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm);
+const worldSnippet = extractJsSnippet(exampleHtml, 'initialLevelData');
+const worldData = parseSnippet(worldSnippet, /WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm);
 	
-fs.writeFileSync('generated.json', stringify(worldData, { maxLength: 160 }));
+const spriteSnippet = extractJsSnippet(exampleHtml, 'changedSprites');
+const spriteData = parseSnippet(spriteSnippet, /SpritePixelArrays\["(.*?)"\]\s*=\s*(.*?);/g);
+
+fs.writeFileSync('generated.json', stringify({ 
+		world: worldData,
+		sprites: spriteData
+	} , { maxLength: 160 }));
 	
 console.log('See "generated.json"');

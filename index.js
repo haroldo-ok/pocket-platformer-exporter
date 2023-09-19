@@ -10,4 +10,7 @@ const extractJsSnippet = (html, delimiter) => stringBetweenStrings(html, `//${de
 
 const exampleHtml = fs.readFileSync('example-project.html', 'utf8');
 
-console.log(extractJsSnippet(exampleHtml, 'initialLevelData'));
+const snippet = extractJsSnippet(exampleHtml, 'initialLevelData');
+
+console.log(Object.fromEntries([...snippet.matchAll(/WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm)]
+	.map(match => [match[1], match[2]])));

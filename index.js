@@ -16,13 +16,15 @@ const parseJsValue = original => JSON.parse(original.trim()
 	// Parse 'unescape("foo")' into a JSON string
 	.replace(/unescape\((.*)\)/, (_, str) => JSON.stringify(unescape(JSON.parse(str)))));
 	
+const parseSnippet = (snippet, regex) => Object.fromEntries([...snippet.matchAll(regex)]
+	.map(match => [match[1], parseJsValue(match[2])]));
+	
 	
 const exampleHtml = fs.readFileSync('example-project.html', 'utf8');
 
 const snippet = extractJsSnippet(exampleHtml, 'initialLevelData');
 
-const worldData = Object.fromEntries([...snippet.matchAll(/WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm)]
-	.map(match => [match[1], parseJsValue(match[2])]));
+const worldData = parseSnippet(snippet, /WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm);
 	
 fs.writeFileSync('generated.json', stringify(worldData, { maxLength: 160 }));
 	

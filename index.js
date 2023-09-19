@@ -8,9 +8,15 @@ const stringBetweenStrings = (str, startStr, endStr) => {
 
 const extractJsSnippet = (html, delimiter) => stringBetweenStrings(html, `//${delimiter}Start`, `//${delimiter}End`);
 
+const parseJsValue = original => JSON.parse(original.trim()
+	// Remove trailing ';'
+	.replace(/;$/, '')
+	// Parse 'unescape("foo")' into a JSON string
+	.replace(/unescape\((.*)\)/, (_, str) => JSON.stringify(unescape(JSON.parse(str)))));
+
 const exampleHtml = fs.readFileSync('example-project.html', 'utf8');
 
 const snippet = extractJsSnippet(exampleHtml, 'initialLevelData');
 
 console.log(Object.fromEntries([...snippet.matchAll(/WorldDataHandler\.(\w+)\s*=\s*(.*)\s*[;\n]/gm)]
-	.map(match => [match[1], match[2]])));
+	.map(match => [match[1], parseJsValue(match[2])])));

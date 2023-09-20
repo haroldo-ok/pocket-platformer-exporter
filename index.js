@@ -33,21 +33,28 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
+// Convert tileset
 const Jimp = require('jimp');
 
-const imageData = sprites.TILE_1.animation[0].sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16)));
+const imageDataPerTiles = Object.values(sprites)
+	.map(sprite => sprite.animation.map(animation => 
+		animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16)))))
+	.flat();
 
 // See https://stackoverflow.com/a/42635011/679240
-let image = new Jimp(8, 8, function (err, image) {
-  if (err) throw err;
+let image = new Jimp(8, imageDataPerTiles.length * 8, function (err, image) {
+	if (err) throw err;
 
-  imageData.forEach((row, y) => {
-    row.forEach((color, x) => {
-      image.setPixelColor(color, x, y);
-    });
-  });
+	imageDataPerTiles.forEach((tile, tileNumber) => {
+		const offsetY = tileNumber * 8;
+		tile.forEach((row, y) => {
+			row.forEach((color, x) => {
+			  image.setPixelColor(color, x, y + offsetY);
+			});
+		});
+	});
 
-  image.write('spritesheet.png', (err) => {
-    if (err) throw err;
-  });
+	image.write('spritesheet.png', (err) => {
+		if (err) throw err;
+	});
 });

@@ -35,16 +35,10 @@ console.log('See "generated.json"');
 
 const Jimp = require('jimp');
 
-
-let imageData = [
-  [ 0xFF0000FF, 0xFF0000FF, 0xFF000000 ],
-  [ 0xFF0000FF, 0x00FF00FF, 0xFF0000FF ],
-  [ 0xFF0000FF, 0xFF0000FF, 0x0000FFFF ]
-];
-
+const imageData = sprites.TILE_1.animation[0].sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16)));
 
 // See https://stackoverflow.com/a/42635011/679240
-let image = new Jimp(3, 3, function (err, image) {
+let image = new Jimp(8, 8, function (err, image) {
   if (err) throw err;
 
   imageData.forEach((row, y) => {
@@ -53,7 +47,7 @@ let image = new Jimp(3, 3, function (err, image) {
     });
   });
 
-  image.write('test.png', (err) => {
+  image.write('spritesheet.png', (err) => {
     if (err) throw err;
   });
 });

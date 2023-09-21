@@ -33,6 +33,28 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
+// Prepare tileset for conversion
+const tileSetData = Object.entries(sprites)
+	//.slice(0, 4)
+	.map(([key, { animation, ...rest }]) => ({ 
+		key, 
+		...rest, 
+		frames: animation.map(animation => 
+			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16))))
+	}))
+	.reduce(({ sourceTileCount, targetTileCount, tiles }, tile) => ({
+		sourceTileCount: sourceTileCount + 1,
+		targetTileCount: targetTileCount + tile.frames.length,
+		tiles: [...tiles, { 
+			...tile,
+			sourceIndex: sourceTileCount,
+			targetIndex: targetTileCount
+		}]
+	}), { sourceTileCount: 0, targetTileCount: 0, tiles: [] });
+console.log(tileSetData);
+
+
+
 // Convert tileset
 
 const Jimp = require('jimp');

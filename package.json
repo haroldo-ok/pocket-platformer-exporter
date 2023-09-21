@@ -18,6 +18,7 @@
   "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme",
   "dependencies": {
     "jimp": "^0.22.10",
-    "json-stringify-pretty-compact": "^3.0.0"
+    "json-stringify-pretty-compact": "^3.0.0",
+    "xmlbuilder2": "^3.1.1"
   }
 }

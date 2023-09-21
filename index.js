@@ -53,7 +53,7 @@ const tileSetData = Object.entries(sprites)
 
 
 
-// Convert tileset
+// Convert tileset to image
 
 const Jimp = require('jimp');
 
@@ -85,3 +85,20 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 		if (err) throw err;
 	});
 });
+
+
+// Convert tileset to TMX
+
+const xmlbuilder2 = require('xmlbuilder2');
+
+const root = xmlbuilder2.create({ version: '1.0' })
+  .ele('root', { att: 'val' })
+    .ele('foo')
+      .ele('bar').txt('foobar').up()
+    .up()
+    .ele('baz').up()
+  .up();
+
+// convert the XML tree to string
+const xml = root.end({ prettyPrint: true });
+fs.writeFileSync('tileset.tsx', xml);

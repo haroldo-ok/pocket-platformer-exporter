@@ -36,8 +36,7 @@ console.log('See "generated.json"');
 // Prepare tileset for conversion
 const tileSetData = Object.entries(sprites)
 	.map(([key, { animation, ...rest }]) => ({ 
-		key, 
-		...rest, 
+		metaData: { key, ...rest }, 
 		frames: animation.map(animation => 
 			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16))))
 	}))
@@ -58,6 +57,7 @@ const tileSetData = Object.entries(sprites)
 const Jimp = require('jimp');
 
 const TILESET_WIDTH_TILES = 32;
+const IMAGE_NAME = 'spritesheet.png';
 
 // See https://stackoverflow.com/a/42635011/679240
 const imageWidth = TILESET_WIDTH_TILES * 8;
@@ -81,7 +81,7 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 		});				
 	});
 
-	image.write('spritesheet.png', (err) => {
+	image.write(IMAGE_NAME, (err) => {
 		if (err) throw err;
 	});
 });
@@ -92,12 +92,37 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 const xmlbuilder2 = require('xmlbuilder2');
 
 const root = xmlbuilder2.create({ version: '1.0' })
-  .ele('root', { att: 'val' })
-    .ele('foo')
-      .ele('bar').txt('foobar').up()
-    .up()
-    .ele('baz').up()
-  .up();
+	.ele('tileset', { 
+		version: 1.5, 
+		tiledversion: '2021.03.23', 
+		name: 'tileset', 
+		tilewidth: 8, 
+		tileheight: 8, 
+		tilecount: tileSetData.targetTileCount, 
+		columns: TILESET_WIDTH_TILES
+	});
+	
+root.ele('image', {
+	source: IMAGE_NAME, 
+	width: imageWidth, 
+	height: imageHeight
+});
+
+
+tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
+	const tileElement = root.ele('tile', { id: targetIndex });
+	
+	const propertiesElement = tileElement.ele('properties');
+	Object.entries(metaData).forEach(([name, value]) => {
+		const type = 
+			typeof value === 'boolean' ? 'bool' :
+			typeof value === 'number' ? 'float' :
+			undefined;
+
+		propertiesElement.ele('property', { name, type, value });
+	});
+});
+
 
 // convert the XML tree to string
 const xml = root.end({ prettyPrint: true });

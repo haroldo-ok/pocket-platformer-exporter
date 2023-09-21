@@ -91,6 +91,18 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 
 const xmlbuilder2 = require('xmlbuilder2');
 
+const fillProperties = (baseElement, properties) => {
+	const propertiesElement = baseElement.ele('properties');
+	Object.entries(properties).forEach(([name, value]) => {
+		const type = 
+			typeof value === 'boolean' ? 'bool' :
+			typeof value === 'number' ? 'float' :
+			undefined;
+
+		propertiesElement.ele('property', { name, type, value });
+	});
+};
+
 const root = xmlbuilder2.create({ version: '1.0' })
 	.ele('tileset', { 
 		version: 1.5, 
@@ -111,16 +123,8 @@ root.ele('image', {
 
 tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
 	const tileElement = root.ele('tile', { id: targetIndex });
-	
-	const propertiesElement = tileElement.ele('properties');
-	Object.entries(metaData).forEach(([name, value]) => {
-		const type = 
-			typeof value === 'boolean' ? 'bool' :
-			typeof value === 'number' ? 'float' :
-			undefined;
 
-		propertiesElement.ele('property', { name, type, value });
-	});
+	fillProperties(tileElement, metaData);
 });
 
 

@@ -1,5 +1,25 @@
 <?xml version="1.0"?>
 <tileset version="1.5" tiledversion="2021.03.23" name="tileset" tilewidth="8" tileheight="8" tilecount="101" columns="32">
+  <properties>
+    <property name="world.gamesName" value="Test level"/>
+    <property name="world.endingMessage" value="Thx for playing!"/>
+    <property name="world.effects" value=""/>
+    <property name="world.backgroundColor" value="000000"/>
+    <property name="world.textColor" value="ffffff"/>
+    <property name="player.groundAcceleration" type="float" value="0.8"/>
+    <property name="player.air_acceleration" type="float" value="0.8"/>
+    <property name="player.maxSpeed" type="float" value="3.2"/>
+    <property name="player.groundFriction" type="float" value="0.65"/>
+    <property name="player.air_friction" type="float" value="0.75"/>
+    <property name="player.jumpSpeed" type="float" value="0.44"/>
+    <property name="player.maxFallSpeed" type="float" value="16"/>
+    <property name="player.maxJumpFrames" type="float" value="18"/>
+    <property name="player.jumpChecked" type="bool" value="true"/>
+    <property name="player.wallJumpChecked" type="bool" value="true"/>
+    <property name="player.doubleJumpChecked" type="bool" value="false"/>
+    <property name="player.dashChecked" type="bool" value="false"/>
+    <property name="player.runChecked" type="bool" value="false"/>
+  </properties>
   <image source="spritesheet.png" width="256" height="32"/>
   <tile id="0">
     <properties>

@@ -114,12 +114,17 @@ const root = xmlbuilder2.create({ version: '1.0' })
 		columns: TILESET_WIDTH_TILES
 	});
 	
+const imageProperties = [
+	...Object.entries(world).filter(([k]) => k !== 'levels').map(([k, v]) => [`world.${k}`, v]),
+	...Object.entries(player).map(([k, v]) => [`player.${k}`, v])
+];
+fillProperties(root, Object.fromEntries(imageProperties));
+
 root.ele('image', {
 	source: IMAGE_NAME, 
 	width: imageWidth, 
 	height: imageHeight
 });
-
 
 tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
 	const tileElement = root.ele('tile', { id: targetIndex });

@@ -79,6 +79,7 @@ const Jimp = require('jimp');
 
 const TILESET_WIDTH_TILES = 32;
 const IMAGE_NAME = 'spritesheet.png';
+const TILESET_NAME = 'tileset.tsx';
 
 // See https://stackoverflow.com/a/42635011/679240
 const imageWidth = TILESET_WIDTH_TILES * 8;
@@ -108,7 +109,7 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 });
 
 
-// Convert tileset to TMX
+// Convert tileset to TSX
 
 const xmlbuilder2 = require('xmlbuilder2');
 
@@ -167,3 +168,28 @@ tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
 // convert the XML tree to string
 const xml = root.end({ prettyPrint: true });
 fs.writeFileSync('tileset.tsx', xml);
+
+
+// Convert maps to TMX
+
+
+const mapRoot = xmlbuilder2.create({ version: '1.0' })
+	.ele('map', { 
+		version: 1.5,
+		tiledversion: '2021.03.23',
+		orientation: 'orthogonal',
+		renderorder: 'right-down',
+		width: 16,
+		height: 100,
+		tilewidth: 8,
+		tileheight: 8,
+		infinite: 0,
+		nextlayerid: 4,
+		nextobjectid: 22
+	});
+	
+mapRoot.ele('tileset', { firstgid: 1, source: TILESET_NAME });
+
+// convert the XML tree to string
+const mapXml = mapRoot.end({ prettyPrint: true });
+fs.writeFileSync('level1.tmx', mapXml);

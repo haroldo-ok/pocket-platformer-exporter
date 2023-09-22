@@ -130,6 +130,16 @@ tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
 	const tileElement = root.ele('tile', { id: targetIndex });
 
 	fillProperties(tileElement, metaData);
+	
+	if (frames.length > 1) {
+		const animationElement = tileElement.ele('animation');
+		frames.forEach((frame, frameNumber) => {
+			animationElement.ele('frame', {
+				tileid: targetIndex + frameNumber, 
+				duration: 100
+			});		
+		});
+	}
 });
 
 

@@ -183,6 +183,10 @@
       <property name="description" value="The player sprite that is shown when you are running."/>
       <property name="directions" value="right,left"/>
     </properties>
+    <animation>
+      <frame tileid="17" duration="100"/>
+      <frame tileid="18" duration="100"/>
+    </animation>
   </tile>
   <tile id="19">
     <properties>
@@ -201,6 +205,10 @@
       <property name="description" value="If the player touches the checkpoint, he will respawn here after a death. If there are multiple checkpoints, the latest one the player touched will become the respawn point."/>
       <property name="type" value="objects"/>
     </properties>
+    <animation>
+      <frame tileid="20" duration="100"/>
+      <frame tileid="21" duration="100"/>
+    </animation>
   </tile>
   <tile id="22">
     <properties>
@@ -242,6 +250,10 @@
       <property name="squishAble" type="bool" value="false"/>
       <property name="type" value="objects"/>
     </properties>
+    <animation>
+      <frame tileid="25" duration="100"/>
+      <frame tileid="26" duration="100"/>
+    </animation>
   </tile>
   <tile id="27">
     <properties>
@@ -274,6 +286,10 @@
       <property name="descriptiveName" value="Toggle mine"/>
       <property name="description" value="An object that is harmless at first, but once you step in and out of it, it becomes deadly."/>
     </properties>
+    <animation>
+      <frame tileid="29" duration="100"/>
+      <frame tileid="30" duration="100"/>
+    </animation>
   </tile>
   <tile id="31">
     <properties>
@@ -292,6 +308,10 @@
       <property name="description" value="A passable block that slows down gravity and let's you jump infinitely inside it. Every object can be placed on it."/>
       <property name="type" value="tiles"/>
     </properties>
+    <animation>
+      <frame tileid="32" duration="100"/>
+      <frame tileid="33" duration="100"/>
+    </animation>
   </tile>
   <tile id="34">
     <properties>
@@ -301,6 +321,10 @@
       <property name="description" value="There are red blocks and blue blocks. Only one them can be active at a time. By touching the switch (in the objects tab), the active tiles can be switched."/>
       <property name="type" value="tiles"/>
     </properties>
+    <animation>
+      <frame tileid="34" duration="100"/>
+      <frame tileid="35" duration="100"/>
+    </animation>
   </tile>
   <tile id="36">
     <properties>
@@ -310,6 +334,10 @@
       <property name="description" value="There are red blocks and blue blocks. Only one them can be active at a time. By touching the switch (in the objects tab), the active tiles can be switched."/>
       <property name="type" value="tiles"/>
     </properties>
+    <animation>
+      <frame tileid="36" duration="100"/>
+      <frame tileid="37" duration="100"/>
+    </animation>
   </tile>
   <tile id="38">
     <properties>
@@ -321,6 +349,10 @@
       <property name="squishAble" type="bool" value="false"/>
       <property name="animNotEditale" type="bool" value="true"/>
     </properties>
+    <animation>
+      <frame tileid="38" duration="100"/>
+      <frame tileid="39" duration="100"/>
+    </animation>
   </tile>
   <tile id="40">
     <properties>
@@ -331,6 +363,10 @@
       <property name="type" value="tiles"/>
       <property name="directions" value="right,left"/>
     </properties>
+    <animation>
+      <frame tileid="40" duration="100"/>
+      <frame tileid="41" duration="100"/>
+    </animation>
   </tile>
   <tile id="42">
     <properties>
@@ -379,6 +415,10 @@
       <property name="descriptiveName" value="Rocket"/>
       <property name="description" value="A rocket. The &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Rocket launcher'} }, true)&quot;&gt;rocket launcher&lt;/span&gt; shoots it.&lt;br/&gt;When it hits a wall, &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'SFX 2'} }, true)&quot;&gt;explosion&lt;/span&gt; will be displayed."/>
     </properties>
+    <animation>
+      <frame tileid="46" duration="100"/>
+      <frame tileid="47" duration="100"/>
+    </animation>
   </tile>
   <tile id="48">
     <properties>
@@ -409,6 +449,10 @@
       <property name="descriptiveName" value="Collectible"/>
       <property name="description" value="They can be placed to give the player an additional challenge. &lt;br/&gt; Inside the tool, the collectibles will reappear if you die or reset the level, in the exported game they are gone forever, once &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'SFX 4'} }, true)&quot;&gt;collected&lt;/span&gt;."/>
     </properties>
+    <animation>
+      <frame tileid="50" duration="100"/>
+      <frame tileid="51" duration="100"/>
+    </animation>
   </tile>
   <tile id="52">
     <properties>
@@ -430,6 +474,10 @@
       <property name="directions" value="left,top,right,bottom"/>
       <property name="description" value="A laser. The &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Laser cannon'} }, true)&quot;&gt;laser cannon&lt;/span&gt; shoots it. &lt;br/&gt;"/>
     </properties>
+    <animation>
+      <frame tileid="53" duration="100"/>
+      <frame tileid="54" duration="100"/>
+    </animation>
   </tile>
   <tile id="55">
     <properties>
@@ -460,6 +508,10 @@
       <property name="description" value="Activates auto-run mode upon touching. &lt;br/&gt; The auto-run can be stopped by the auto-run stopper tile. &lt;br/&gt; Jumping off a wall will change the run direction. Click on a set object again, to change it's default direction."/>
       <property name="type" value="objects"/>
     </properties>
+    <animation>
+      <frame tileid="57" duration="100"/>
+      <frame tileid="58" duration="100"/>
+    </animation>
   </tile>
   <tile id="59">
     <properties>
@@ -469,6 +521,10 @@
       <property name="description" value="This tile stops the auto-run activated by the &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Auto run'} }, true)&quot;&gt;auto-run sprite&lt;/span&gt;."/>
       <property name="type" value="objects"/>
     </properties>
+    <animation>
+      <frame tileid="59" duration="100"/>
+      <frame tileid="60" duration="100"/>
+    </animation>
   </tile>
   <tile id="61">
     <properties>
@@ -552,6 +608,10 @@
       <property name="descriptiveName" value="Deco 9"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="70" duration="100"/>
+      <frame tileid="71" duration="100"/>
+    </animation>
   </tile>
   <tile id="72">
     <properties>
@@ -568,6 +628,10 @@
       <property name="descriptiveName" value="Deco 11"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="73" duration="100"/>
+      <frame tileid="74" duration="100"/>
+    </animation>
   </tile>
   <tile id="75">
     <properties>
@@ -576,6 +640,10 @@
       <property name="descriptiveName" value="Deco 12"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="75" duration="100"/>
+      <frame tileid="76" duration="100"/>
+    </animation>
   </tile>
   <tile id="77">
     <properties>
@@ -600,6 +668,10 @@
       <property name="descriptiveName" value="Deco 15"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="79" duration="100"/>
+      <frame tileid="80" duration="100"/>
+    </animation>
   </tile>
   <tile id="81">
     <properties>
@@ -608,6 +680,10 @@
       <property name="descriptiveName" value="Deco 16"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="81" duration="100"/>
+      <frame tileid="82" duration="100"/>
+    </animation>
   </tile>
   <tile id="83">
     <properties>
@@ -624,6 +700,10 @@
       <property name="descriptiveName" value="Deco 18"/>
       <property name="type" value="deco"/>
     </properties>
+    <animation>
+      <frame tileid="84" duration="100"/>
+      <frame tileid="85" duration="100"/>
+    </animation>
   </tile>
   <tile id="86">
     <properties>
@@ -633,6 +713,10 @@
       <property name="descriptiveName" value="SFX 1"/>
       <property name="description" value="SFX that shows when the &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Player jump'} }, true)&quot;&gt;player jumps&lt;/span&gt;."/>
     </properties>
+    <animation>
+      <frame tileid="86" duration="100"/>
+      <frame tileid="87" duration="100"/>
+    </animation>
   </tile>
   <tile id="88">
     <properties>
@@ -641,6 +725,10 @@
       <property name="descriptiveName" value="SFX 2"/>
       <property name="description" value="SFX when &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Cannon ball'} }, true)&quot;&gt;cannon ball&lt;/span&gt; or &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Rocket'} }, true)&quot;&gt;rocket&lt;/span&gt; hit a wall."/>
     </properties>
+    <animation>
+      <frame tileid="88" duration="100"/>
+      <frame tileid="89" duration="100"/>
+    </animation>
   </tile>
   <tile id="90">
     <properties>
@@ -649,6 +737,10 @@
       <property name="descriptiveName" value="SFX 3"/>
       <property name="description" value="SFX when player dashes"/>
     </properties>
+    <animation>
+      <frame tileid="90" duration="100"/>
+      <frame tileid="91" duration="100"/>
+    </animation>
   </tile>
   <tile id="92">
     <properties>
@@ -666,6 +758,10 @@
       <property name="descriptiveName" value="SFX 4"/>
       <property name="description" value="Plays when the player touches a &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Collectible'} }, true)&quot;&gt;collectible&lt;/span&gt;."/>
     </properties>
+    <animation>
+      <frame tileid="93" duration="100"/>
+      <frame tileid="94" duration="100"/>
+    </animation>
   </tile>
   <tile id="95">
     <properties>
@@ -690,6 +786,10 @@
       <property name="descriptiveName" value="SFX 7"/>
       <property name="description" value="Used for shaders"/>
     </properties>
+    <animation>
+      <frame tileid="97" duration="100"/>
+      <frame tileid="98" duration="100"/>
+    </animation>
   </tile>
   <tile id="99">
     <properties>
@@ -698,5 +798,9 @@
       <property name="descriptiveName" value="SFX 8"/>
       <property name="description" value="Will be displayed behind the player, if the player is in auto-run mode."/>
     </properties>
+    <animation>
+      <frame tileid="99" duration="100"/>
+      <frame tileid="100" duration="100"/>
+    </animation>
   </tile>
 </tileset>

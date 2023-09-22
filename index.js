@@ -33,29 +33,8 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
-const BLANK_TILE = {
-  name: 'blank',
-  descriptiveName: 'BLANK',
-  description: 'Just a blank tile',
-  animation: [
-	{
-	  sprite: [
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
-		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp']
-	  ]
-	}
-  ]
-};
-
 // Prepare tileset for conversion
-const tileSetData = [['BLANK', BLANK_TILE], ...Object.entries(sprites)]
+const tileSetData = Object.entries(sprites)
 	.map(([key, { animation, ...rest }]) => ({ 
 		metaData: { key, ...rest }, 
 		frames: animation.map(animation => 
@@ -172,24 +151,43 @@ fs.writeFileSync('tileset.tsx', xml);
 
 // Convert maps to TMX
 
+// Prepare map data
+const mapData = world.levels.map(({ tileData }, levelIndex) => ({ 
+	levelNumber: levelIndex + 1,
+	width: tileData[0].length,
+	height: tileData.length,
+	map: tileData
+}));
 
-const mapRoot = xmlbuilder2.create({ version: '1.0' })
-	.ele('map', { 
-		version: 1.5,
-		tiledversion: '2021.03.23',
-		orientation: 'orthogonal',
-		renderorder: 'right-down',
-		width: 16,
-		height: 100,
-		tilewidth: 8,
-		tileheight: 8,
-		infinite: 0,
-		nextlayerid: 4,
-		nextobjectid: 22
-	});
-	
-mapRoot.ele('tileset', { firstgid: 1, source: TILESET_NAME });
+for (const { levelNumber, width, height, map } of mapData) {
+	const mapRoot = xmlbuilder2.create({ version: '1.0' })
+		.ele('map', { 
+			version: 1.5,
+			tiledversion: '2021.03.23',
+			orientation: 'orthogonal',
+			renderorder: 'right-down',
+			width,
+			height,
+			tilewidth: 8,
+			tileheight: 8,
+			infinite: 0,
+			nextlayerid: 4,
+			nextobjectid: 22
+		});
+		
+	mapRoot.ele('tileset', { firstgid: 1, source: TILESET_NAME });		
 
-// convert the XML tree to string
-const mapXml = mapRoot.end({ prettyPrint: true });
-fs.writeFileSync('level1.tmx', mapXml);
+	mapRoot
+		.ele('layer', {
+			id: 1,
+			name: 'Map',
+			width,
+			height		
+		})
+		.ele('data', { encoding: 'csv' })
+		.txt('\n' + map.map(row => row.join(',')).join(',\n') + '\n');
+
+	// convert the XML tree to string
+	const mapXml = mapRoot.end({ prettyPrint: true });
+	fs.writeFileSync(`level${levelNumber}.tmx`, mapXml);
+}

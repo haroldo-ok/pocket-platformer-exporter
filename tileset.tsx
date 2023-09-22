@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tileset version="1.5" tiledversion="2021.03.23" name="tileset" tilewidth="8" tileheight="8" tilecount="101" columns="32">
+<tileset version="1.5" tiledversion="2021.03.23" name="tileset" tilewidth="8" tileheight="8" tilecount="102" columns="32">
   <properties>
     <property name="world.gamesName" value="Test level"/>
     <property name="world.endingMessage" value="Thx for playing!"/>
@@ -23,6 +23,14 @@
   <image source="spritesheet.png" width="256" height="32"/>
   <tile id="0">
     <properties>
+      <property name="key" value="BLANK"/>
+      <property name="name" value="blank"/>
+      <property name="descriptiveName" value="BLANK"/>
+      <property name="description" value="Just a blank tile"/>
+    </properties>
+  </tile>
+  <tile id="1">
+    <properties>
       <property name="key" value="TILE_1"/>
       <property name="name" type="float" value="1"/>
       <property name="descriptiveName" value="Left top"/>
@@ -30,7 +38,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="1">
+  <tile id="2">
     <properties>
       <property name="key" value="TILE_2"/>
       <property name="name" type="float" value="2"/>
@@ -39,7 +47,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="2">
+  <tile id="3">
     <properties>
       <property name="key" value="TILE_3"/>
       <property name="name" type="float" value="3"/>
@@ -48,7 +56,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="3">
+  <tile id="4">
     <properties>
       <property name="key" value="TILE_4"/>
       <property name="name" type="float" value="4"/>
@@ -57,7 +65,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="4">
+  <tile id="5">
     <properties>
       <property name="key" value="TILE_6"/>
       <property name="name" type="float" value="6"/>
@@ -66,7 +74,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="5">
+  <tile id="6">
     <properties>
       <property name="key" value="TILE_7"/>
       <property name="name" type="float" value="7"/>
@@ -75,7 +83,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="6">
+  <tile id="7">
     <properties>
       <property name="key" value="TILE_8"/>
       <property name="name" type="float" value="8"/>
@@ -84,7 +92,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="7">
+  <tile id="8">
     <properties>
       <property name="key" value="TILE_9"/>
       <property name="name" type="float" value="9"/>
@@ -93,7 +101,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="8">
+  <tile id="9">
     <properties>
       <property name="key" value="TILE_10"/>
       <property name="name" type="float" value="10"/>
@@ -102,7 +110,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="9">
+  <tile id="10">
     <properties>
       <property name="key" value="TILE_11"/>
       <property name="name" type="float" value="15"/>
@@ -111,7 +119,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="10">
+  <tile id="11">
     <properties>
       <property name="key" value="TILE_12"/>
       <property name="name" type="float" value="16"/>
@@ -120,7 +128,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="11">
+  <tile id="12">
     <properties>
       <property name="key" value="TILE_13"/>
       <property name="name" type="float" value="17"/>
@@ -129,7 +137,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="12">
+  <tile id="13">
     <properties>
       <property name="key" value="TILE_5"/>
       <property name="name" type="float" value="5"/>
@@ -138,7 +146,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="13">
+  <tile id="14">
     <properties>
       <property name="key" value="TILE_edge"/>
       <property name="name" value="edge"/>
@@ -146,7 +154,7 @@
       <property name="description" value="Will display on the edge of the game screen"/>
     </properties>
   </tile>
-  <tile id="14">
+  <tile id="15">
     <properties>
       <property name="key" value="PLAYER_IDLE_SPRITE"/>
       <property name="name" value="playerIdle"/>
@@ -155,7 +163,7 @@
       <property name="directions" value="right,left"/>
     </properties>
   </tile>
-  <tile id="15">
+  <tile id="16">
     <properties>
       <property name="key" value="PLAYER_JUMP_SPRITE"/>
       <property name="name" value="playerJump"/>
@@ -165,7 +173,7 @@
       <property name="directions" value="right,left"/>
     </properties>
   </tile>
-  <tile id="16">
+  <tile id="17">
     <properties>
       <property name="key" value="PLAYER_WALL_JUMP_SPRITE"/>
       <property name="descriptiveName" value="Player wall jump"/>
@@ -175,7 +183,7 @@
       <property name="directions" value="right,left"/>
     </properties>
   </tile>
-  <tile id="17">
+  <tile id="18">
     <properties>
       <property name="key" value="PLAYER_WALK_SPRITE"/>
       <property name="name" value="playerWalk"/>
@@ -184,11 +192,11 @@
       <property name="directions" value="right,left"/>
     </properties>
     <animation>
-      <frame tileid="17" duration="100"/>
       <frame tileid="18" duration="100"/>
+      <frame tileid="19" duration="100"/>
     </animation>
   </tile>
-  <tile id="19">
+  <tile id="20">
     <properties>
       <property name="key" value="START_FLAG_SPRITE"/>
       <property name="name" value="startFlag"/>
@@ -197,7 +205,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="20">
+  <tile id="21">
     <properties>
       <property name="key" value="CHECKPOINT_FLAG"/>
       <property name="name" value="checkpoint"/>
@@ -206,11 +214,11 @@
       <property name="type" value="objects"/>
     </properties>
     <animation>
-      <frame tileid="20" duration="100"/>
       <frame tileid="21" duration="100"/>
+      <frame tileid="22" duration="100"/>
     </animation>
   </tile>
-  <tile id="22">
+  <tile id="23">
     <properties>
       <property name="key" value="FINISH_FLAG_SPRITE"/>
       <property name="name" value="finishFlag"/>
@@ -220,7 +228,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="23">
+  <tile id="24">
     <properties>
       <property name="key" value="FINISH_FLAG_CLOSED_SPRITE"/>
       <property name="name" value="finishFlagClosed"/>
@@ -230,7 +238,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="24">
+  <tile id="25">
     <properties>
       <property name="key" value="SPIKE_SPRITE"/>
       <property name="name" value="spike"/>
@@ -240,7 +248,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="25">
+  <tile id="26">
     <properties>
       <property name="key" value="TRAMPOLINE_SRPITE"/>
       <property name="name" value="trampoline"/>
@@ -251,11 +259,11 @@
       <property name="type" value="objects"/>
     </properties>
     <animation>
-      <frame tileid="25" duration="100"/>
       <frame tileid="26" duration="100"/>
+      <frame tileid="27" duration="100"/>
     </animation>
   </tile>
-  <tile id="27">
+  <tile id="28">
     <properties>
       <property name="key" value="CANON_SPRITE"/>
       <property name="name" value="canon"/>
@@ -267,7 +275,7 @@
       <property name="directions" value="left,top,right,bottom"/>
     </properties>
   </tile>
-  <tile id="28">
+  <tile id="29">
     <properties>
       <property name="key" value="STOMPER"/>
       <property name="name" value="stomper"/>
@@ -278,7 +286,7 @@
       <property name="description" value="A deadly hazard, that will fly torwards the player, if he is in it's way and move back to it's initial place once it hits a solid block. Can be rotated by clicking on a placed object again."/>
     </properties>
   </tile>
-  <tile id="29">
+  <tile id="30">
     <properties>
       <property name="key" value="TOGGLE_MINE"/>
       <property name="name" value="toggleMine"/>
@@ -287,11 +295,11 @@
       <property name="description" value="An object that is harmless at first, but once you step in and out of it, it becomes deadly."/>
     </properties>
     <animation>
-      <frame tileid="29" duration="100"/>
       <frame tileid="30" duration="100"/>
+      <frame tileid="31" duration="100"/>
     </animation>
   </tile>
-  <tile id="31">
+  <tile id="32">
     <properties>
       <property name="key" value="DISAPPEARING_BLOCK_SPRITE"/>
       <property name="name" value="disappearingBlock"/>
@@ -300,7 +308,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="32">
+  <tile id="33">
     <properties>
       <property name="key" value="WATER"/>
       <property name="name" value="water"/>
@@ -309,11 +317,11 @@
       <property name="type" value="tiles"/>
     </properties>
     <animation>
-      <frame tileid="32" duration="100"/>
       <frame tileid="33" duration="100"/>
+      <frame tileid="34" duration="100"/>
     </animation>
   </tile>
-  <tile id="34">
+  <tile id="35">
     <properties>
       <property name="key" value="RED_BLOCK"/>
       <property name="name" value="redBlock"/>
@@ -322,11 +330,11 @@
       <property name="type" value="tiles"/>
     </properties>
     <animation>
-      <frame tileid="34" duration="100"/>
       <frame tileid="35" duration="100"/>
+      <frame tileid="36" duration="100"/>
     </animation>
   </tile>
-  <tile id="36">
+  <tile id="37">
     <properties>
       <property name="key" value="BLUE_BLOCK"/>
       <property name="name" value="blueBlock"/>
@@ -335,11 +343,11 @@
       <property name="type" value="tiles"/>
     </properties>
     <animation>
-      <frame tileid="36" duration="100"/>
       <frame tileid="37" duration="100"/>
+      <frame tileid="38" duration="100"/>
     </animation>
   </tile>
-  <tile id="38">
+  <tile id="39">
     <properties>
       <property name="key" value="RED_BLUE_BLOCK_SWITCH"/>
       <property name="name" value="redblueblockswitch"/>
@@ -350,11 +358,11 @@
       <property name="animNotEditale" type="bool" value="true"/>
     </properties>
     <animation>
-      <frame tileid="38" duration="100"/>
       <frame tileid="39" duration="100"/>
+      <frame tileid="40" duration="100"/>
     </animation>
   </tile>
-  <tile id="40">
+  <tile id="41">
     <properties>
       <property name="key" value="TREADMILL"/>
       <property name="name" value="treadmill"/>
@@ -364,11 +372,11 @@
       <property name="directions" value="right,left"/>
     </properties>
     <animation>
-      <frame tileid="40" duration="100"/>
       <frame tileid="41" duration="100"/>
+      <frame tileid="42" duration="100"/>
     </animation>
   </tile>
-  <tile id="42">
+  <tile id="43">
     <properties>
       <property name="key" value="ICE_BLOCK"/>
       <property name="name" value="iceBlock"/>
@@ -377,7 +385,7 @@
       <property name="type" value="tiles"/>
     </properties>
   </tile>
-  <tile id="43">
+  <tile id="44">
     <properties>
       <property name="key" value="ROCKET_LAUNCHER"/>
       <property name="name" value="rocketLauncher"/>
@@ -389,7 +397,7 @@
       <property name="description" value="A rocket-launcher. It shoots &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Rocket'} }, true)&quot;&gt;rockets&lt;/span&gt; at certain time intervals that will follow the player. Click on it after placing it again, to change the attributes of the individual cannon."/>
     </properties>
   </tile>
-  <tile id="44">
+  <tile id="45">
     <properties>
       <property name="key" value="NPC_SPRITE"/>
       <property name="name" value="npc"/>
@@ -399,7 +407,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="45">
+  <tile id="46">
     <properties>
       <property name="key" value="CANON_BALL_SPRITE"/>
       <property name="name" value="canonBall"/>
@@ -408,7 +416,7 @@
       <property name="description" value="A cannonball. The &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Cannon'} }, true)&quot;&gt;cannon&lt;/span&gt; shoots it. &lt;br/&gt;When it hits a wall, &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'SFX 2'} }, true)&quot;&gt;explosion&lt;/span&gt; will be displayed."/>
     </properties>
   </tile>
-  <tile id="46">
+  <tile id="47">
     <properties>
       <property name="key" value="ROCKET"/>
       <property name="name" value="rocket"/>
@@ -416,11 +424,11 @@
       <property name="description" value="A rocket. The &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Rocket launcher'} }, true)&quot;&gt;rocket launcher&lt;/span&gt; shoots it.&lt;br/&gt;When it hits a wall, &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'SFX 2'} }, true)&quot;&gt;explosion&lt;/span&gt; will be displayed."/>
     </properties>
     <animation>
-      <frame tileid="46" duration="100"/>
       <frame tileid="47" duration="100"/>
+      <frame tileid="48" duration="100"/>
     </animation>
   </tile>
-  <tile id="48">
+  <tile id="49">
     <properties>
       <property name="key" value="PORTAL"/>
       <property name="name" value="portal"/>
@@ -430,7 +438,7 @@
       <property name="description" value="&lt;b&gt;Second Sprite:&lt;/b&gt; &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Portal 2'} }, true)&quot;&gt;Here&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;A portal with 2 exits. &lt;br/&gt;Just draw 2 portals on the game screen. The odd one will automatically be the first, the even one the second."/>
     </properties>
   </tile>
-  <tile id="49">
+  <tile id="50">
     <properties>
       <property name="key" value="PORTAL2"/>
       <property name="name" value="portal2"/>
@@ -441,7 +449,7 @@
       <property name="hiddenSprite" type="bool" value="true"/>
     </properties>
   </tile>
-  <tile id="50">
+  <tile id="51">
     <properties>
       <property name="key" value="COLLECTIBLE"/>
       <property name="name" value="collectible"/>
@@ -450,11 +458,11 @@
       <property name="description" value="They can be placed to give the player an additional challenge. &lt;br/&gt; Inside the tool, the collectibles will reappear if you die or reset the level, in the exported game they are gone forever, once &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'SFX 4'} }, true)&quot;&gt;collected&lt;/span&gt;."/>
     </properties>
     <animation>
-      <frame tileid="50" duration="100"/>
       <frame tileid="51" duration="100"/>
+      <frame tileid="52" duration="100"/>
     </animation>
   </tile>
-  <tile id="52">
+  <tile id="53">
     <properties>
       <property name="key" value="LASER_CANON"/>
       <property name="name" value="laserCanon"/>
@@ -466,7 +474,7 @@
       <property name="directions" value="left,top,right,bottom"/>
     </properties>
   </tile>
-  <tile id="53">
+  <tile id="54">
     <properties>
       <property name="key" value="LASER"/>
       <property name="name" value="laser"/>
@@ -475,11 +483,11 @@
       <property name="description" value="A laser. The &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Laser cannon'} }, true)&quot;&gt;laser cannon&lt;/span&gt; shoots it. &lt;br/&gt;"/>
     </properties>
     <animation>
-      <frame tileid="53" duration="100"/>
       <frame tileid="54" duration="100"/>
+      <frame tileid="55" duration="100"/>
     </animation>
   </tile>
-  <tile id="55">
+  <tile id="56">
     <properties>
       <property name="key" value="BARREL_CANNON"/>
       <property name="name" value="barrelCannon"/>
@@ -490,7 +498,7 @@
       <property name="directions" value="left,top,right,bottom"/>
     </properties>
   </tile>
-  <tile id="56">
+  <tile id="57">
     <properties>
       <property name="key" value="JUMP_RESET"/>
       <property name="name" value="jumpReset"/>
@@ -499,7 +507,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="57">
+  <tile id="58">
     <properties>
       <property name="key" value="FIXED_SPEED_RIGHT"/>
       <property name="name" value="fixedSpeedRight"/>
@@ -509,11 +517,11 @@
       <property name="type" value="objects"/>
     </properties>
     <animation>
-      <frame tileid="57" duration="100"/>
       <frame tileid="58" duration="100"/>
+      <frame tileid="59" duration="100"/>
     </animation>
   </tile>
-  <tile id="59">
+  <tile id="60">
     <properties>
       <property name="key" value="FIXED_SPEED_STOPPER"/>
       <property name="name" value="fixedSpeedStopper"/>
@@ -522,11 +530,11 @@
       <property name="type" value="objects"/>
     </properties>
     <animation>
-      <frame tileid="59" duration="100"/>
       <frame tileid="60" duration="100"/>
+      <frame tileid="61" duration="100"/>
     </animation>
   </tile>
-  <tile id="61">
+  <tile id="62">
     <properties>
       <property name="key" value="PATH_SPRITE"/>
       <property name="name" value="pathPoint"/>
@@ -537,7 +545,7 @@
       <property name="type" value="objects"/>
     </properties>
   </tile>
-  <tile id="62">
+  <tile id="63">
     <properties>
       <property name="key" value="DEKO_SPRITE"/>
       <property name="name" value="deco"/>
@@ -545,7 +553,7 @@
       <property name="descriptiveName" value="Deco 1"/>
     </properties>
   </tile>
-  <tile id="63">
+  <tile id="64">
     <properties>
       <property name="key" value="DEKO_SPRITE2"/>
       <property name="name" value="deco"/>
@@ -553,7 +561,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="64">
+  <tile id="65">
     <properties>
       <property name="key" value="DEKO_SPRITE3"/>
       <property name="name" value="deco"/>
@@ -561,7 +569,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="65">
+  <tile id="66">
     <properties>
       <property name="key" value="DEKO_SPRITE4"/>
       <property name="name" value="deco"/>
@@ -569,7 +577,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="66">
+  <tile id="67">
     <properties>
       <property name="key" value="DEKO_SPRITE5"/>
       <property name="name" value="deco"/>
@@ -577,7 +585,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="67">
+  <tile id="68">
     <properties>
       <property name="key" value="DEKO_SPRITE6"/>
       <property name="name" value="deco"/>
@@ -585,7 +593,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="68">
+  <tile id="69">
     <properties>
       <property name="key" value="DEKO_SPRITE7"/>
       <property name="name" value="deco"/>
@@ -593,7 +601,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="69">
+  <tile id="70">
     <properties>
       <property name="key" value="DEKO_SPRITE8"/>
       <property name="name" value="deco"/>
@@ -601,7 +609,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="70">
+  <tile id="71">
     <properties>
       <property name="key" value="DEKO_SPRITE9"/>
       <property name="name" value="deco"/>
@@ -609,11 +617,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="70" duration="100"/>
       <frame tileid="71" duration="100"/>
+      <frame tileid="72" duration="100"/>
     </animation>
   </tile>
-  <tile id="72">
+  <tile id="73">
     <properties>
       <property name="key" value="DEKO_SPRITE10"/>
       <property name="name" value="deco"/>
@@ -621,7 +629,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="73">
+  <tile id="74">
     <properties>
       <property name="key" value="DEKO_SPRITE11"/>
       <property name="name" value="deco"/>
@@ -629,11 +637,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="73" duration="100"/>
       <frame tileid="74" duration="100"/>
+      <frame tileid="75" duration="100"/>
     </animation>
   </tile>
-  <tile id="75">
+  <tile id="76">
     <properties>
       <property name="key" value="DEKO_SPRITE12"/>
       <property name="name" value="deco"/>
@@ -641,11 +649,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="75" duration="100"/>
       <frame tileid="76" duration="100"/>
+      <frame tileid="77" duration="100"/>
     </animation>
   </tile>
-  <tile id="77">
+  <tile id="78">
     <properties>
       <property name="key" value="DEKO_SPRITE13"/>
       <property name="name" value="deco"/>
@@ -653,7 +661,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="78">
+  <tile id="79">
     <properties>
       <property name="key" value="DEKO_SPRITE14"/>
       <property name="name" value="deco"/>
@@ -661,7 +669,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="79">
+  <tile id="80">
     <properties>
       <property name="key" value="DEKO_SPRITE15"/>
       <property name="name" value="deco"/>
@@ -669,11 +677,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="79" duration="100"/>
       <frame tileid="80" duration="100"/>
+      <frame tileid="81" duration="100"/>
     </animation>
   </tile>
-  <tile id="81">
+  <tile id="82">
     <properties>
       <property name="key" value="DEKO_SPRITE16"/>
       <property name="name" value="deco"/>
@@ -681,11 +689,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="81" duration="100"/>
       <frame tileid="82" duration="100"/>
+      <frame tileid="83" duration="100"/>
     </animation>
   </tile>
-  <tile id="83">
+  <tile id="84">
     <properties>
       <property name="key" value="DEKO_SPRITE17"/>
       <property name="name" value="deco"/>
@@ -693,7 +701,7 @@
       <property name="type" value="deco"/>
     </properties>
   </tile>
-  <tile id="84">
+  <tile id="85">
     <properties>
       <property name="key" value="DEKO_SPRITE18"/>
       <property name="name" value="deco"/>
@@ -701,11 +709,11 @@
       <property name="type" value="deco"/>
     </properties>
     <animation>
-      <frame tileid="84" duration="100"/>
       <frame tileid="85" duration="100"/>
+      <frame tileid="86" duration="100"/>
     </animation>
   </tile>
-  <tile id="86">
+  <tile id="87">
     <properties>
       <property name="key" value="SFX1"/>
       <property name="name" value="sfx"/>
@@ -714,11 +722,11 @@
       <property name="description" value="SFX that shows when the &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Player jump'} }, true)&quot;&gt;player jumps&lt;/span&gt;."/>
     </properties>
     <animation>
-      <frame tileid="86" duration="100"/>
       <frame tileid="87" duration="100"/>
+      <frame tileid="88" duration="100"/>
     </animation>
   </tile>
-  <tile id="88">
+  <tile id="89">
     <properties>
       <property name="key" value="SFX2"/>
       <property name="name" value="sfx"/>
@@ -726,11 +734,11 @@
       <property name="description" value="SFX when &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Cannon ball'} }, true)&quot;&gt;cannon ball&lt;/span&gt; or &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Rocket'} }, true)&quot;&gt;rocket&lt;/span&gt; hit a wall."/>
     </properties>
     <animation>
-      <frame tileid="88" duration="100"/>
       <frame tileid="89" duration="100"/>
+      <frame tileid="90" duration="100"/>
     </animation>
   </tile>
-  <tile id="90">
+  <tile id="91">
     <properties>
       <property name="key" value="SFX3"/>
       <property name="name" value="sfx"/>
@@ -738,11 +746,11 @@
       <property name="description" value="SFX when player dashes"/>
     </properties>
     <animation>
-      <frame tileid="90" duration="100"/>
       <frame tileid="91" duration="100"/>
+      <frame tileid="92" duration="100"/>
     </animation>
   </tile>
-  <tile id="92">
+  <tile id="93">
     <properties>
       <property name="key" value="SFX4"/>
       <property name="name" value="sfx"/>
@@ -751,7 +759,7 @@
       <property name="description" value="SFX when an object is placed in build mode"/>
     </properties>
   </tile>
-  <tile id="93">
+  <tile id="94">
     <properties>
       <property name="key" value="SFX5"/>
       <property name="name" value="sfx"/>
@@ -759,11 +767,11 @@
       <property name="description" value="Plays when the player touches a &lt;span class='textAsLink' onclick=&quot;DrawSectionHandler.changeSelectedSprite({ target: { value:  'Collectible'} }, true)&quot;&gt;collectible&lt;/span&gt;."/>
     </properties>
     <animation>
-      <frame tileid="93" duration="100"/>
       <frame tileid="94" duration="100"/>
+      <frame tileid="95" duration="100"/>
     </animation>
   </tile>
-  <tile id="95">
+  <tile id="96">
     <properties>
       <property name="key" value="SFX6"/>
       <property name="name" value="sfx"/>
@@ -771,7 +779,7 @@
       <property name="description" value="Used for shaders"/>
     </properties>
   </tile>
-  <tile id="96">
+  <tile id="97">
     <properties>
       <property name="key" value="SFX7"/>
       <property name="name" value="sfx"/>
@@ -779,7 +787,7 @@
       <property name="description" value="Used for shaders"/>
     </properties>
   </tile>
-  <tile id="97">
+  <tile id="98">
     <properties>
       <property name="key" value="SFX8"/>
       <property name="name" value="sfx"/>
@@ -787,11 +795,11 @@
       <property name="description" value="Used for shaders"/>
     </properties>
     <animation>
-      <frame tileid="97" duration="100"/>
       <frame tileid="98" duration="100"/>
+      <frame tileid="99" duration="100"/>
     </animation>
   </tile>
-  <tile id="99">
+  <tile id="100">
     <properties>
       <property name="key" value="SFX9"/>
       <property name="name" value="sfx"/>
@@ -799,8 +807,8 @@
       <property name="description" value="Will be displayed behind the player, if the player is in auto-run mode."/>
     </properties>
     <animation>
-      <frame tileid="99" duration="100"/>
       <frame tileid="100" duration="100"/>
+      <frame tileid="101" duration="100"/>
     </animation>
   </tile>
 </tileset>

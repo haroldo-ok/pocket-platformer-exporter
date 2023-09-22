@@ -33,8 +33,29 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
+const BLANK_TILE = {
+  name: 'blank',
+  descriptiveName: 'BLANK',
+  description: 'Just a blank tile',
+  animation: [
+	{
+	  sprite: [
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp'],
+		['transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp', 'transp']
+	  ]
+	}
+  ]
+};
+
 // Prepare tileset for conversion
-const tileSetData = Object.entries(sprites)
+const tileSetData = [['BLANK', BLANK_TILE], ...Object.entries(sprites)]
 	.map(([key, { animation, ...rest }]) => ({ 
 		metaData: { key, ...rest }, 
 		frames: animation.map(animation => 

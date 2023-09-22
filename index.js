@@ -33,35 +33,116 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
-// Convert tileset
+// Prepare tileset for conversion
+const tileSetData = Object.entries(sprites)
+	.map(([key, { animation, ...rest }]) => ({ 
+		metaData: { key, ...rest }, 
+		frames: animation.map(animation => 
+			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16))))
+	}))
+	.reduce(({ sourceTileCount, targetTileCount, tiles }, tile) => ({
+		sourceTileCount: sourceTileCount + 1,
+		targetTileCount: targetTileCount + tile.frames.length,
+		tiles: [...tiles, { 
+			...tile,
+			sourceIndex: sourceTileCount,
+			targetIndex: targetTileCount
+		}]
+	}), { sourceTileCount: 0, targetTileCount: 0, tiles: [] });
+
+
+
+// Convert tileset to image
 
 const Jimp = require('jimp');
 
 const TILESET_WIDTH_TILES = 32;
-
-const imageDataPerTiles = Object.values(sprites)
-	.map(sprite => sprite.animation.map(animation => 
-		animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16)))))
-	.flat();
+const IMAGE_NAME = 'spritesheet.png';
 
 // See https://stackoverflow.com/a/42635011/679240
-let image = new Jimp(TILESET_WIDTH_TILES * 8, Math.ceil(imageDataPerTiles.length / TILESET_WIDTH_TILES) * 8, function (err, image) {
+const imageWidth = TILESET_WIDTH_TILES * 8;
+const imageHeight = Math.ceil(tileSetData.targetTileCount / TILESET_WIDTH_TILES) * 8;
+let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 	if (err) throw err;
 
-	imageDataPerTiles.forEach((tile, tileNumber) => {
-		const offset = {
-			x: (tileNumber % TILESET_WIDTH_TILES) * 8,
-			y: Math.floor(tileNumber / TILESET_WIDTH_TILES) * 8
-		};
-		
-		tile.forEach((row, y) => {
-			row.forEach((color, x) => {
-			  image.setPixelColor(color, x + offset.x, y + offset.y);
+	tileSetData.tiles.forEach(({ targetIndex, frames }) => {
+		frames.forEach((frame, frameNumber) => {
+			const tileNumber = targetIndex + frameNumber;
+			const offset = {
+				x: (tileNumber % TILESET_WIDTH_TILES) * 8,
+				y: Math.floor(tileNumber / TILESET_WIDTH_TILES) * 8
+			};
+			
+			frame.forEach((row, y) => {
+				row.forEach((color, x) => {
+				  image.setPixelColor(color, x + offset.x, y + offset.y);
+				});
 			});
-		});
+		});				
 	});
 
-	image.write('spritesheet.png', (err) => {
+	image.write(IMAGE_NAME, (err) => {
 		if (err) throw err;
 	});
 });
+
+
+// Convert tileset to TMX
+
+const xmlbuilder2 = require('xmlbuilder2');
+
+const fillProperties = (baseElement, properties) => {
+	const propertiesElement = baseElement.ele('properties');
+	Object.entries(properties).forEach(([name, value]) => {
+		const type = 
+			typeof value === 'boolean' ? 'bool' :
+			typeof value === 'number' ? 'float' :
+			undefined;
+
+		propertiesElement.ele('property', { name, type, value });
+	});
+};
+
+const root = xmlbuilder2.create({ version: '1.0' })
+	.ele('tileset', { 
+		version: 1.5, 
+		tiledversion: '2021.03.23', 
+		name: 'tileset', 
+		tilewidth: 8, 
+		tileheight: 8, 
+		tilecount: tileSetData.targetTileCount, 
+		columns: TILESET_WIDTH_TILES
+	});
+	
+const imageProperties = [
+	...Object.entries(world).filter(([k]) => k !== 'levels').map(([k, v]) => [`world.${k}`, v]),
+	...Object.entries(player).map(([k, v]) => [`player.${k}`, v])
+];
+fillProperties(root, Object.fromEntries(imageProperties));
+
+root.ele('image', {
+	source: IMAGE_NAME, 
+	width: imageWidth, 
+	height: imageHeight
+});
+
+tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
+	const tileElement = root.ele('tile', { id: targetIndex });
+
+	fillProperties(tileElement, metaData);
+	
+	if (frames.length > 1) {
+		const animationElement = tileElement.ele('animation');
+		frames.forEach((frame, frameNumber) => {
+			animationElement.ele('frame', {
+				tileid: targetIndex + frameNumber, 
+				duration: 100
+			});		
+		});
+	}
+});
+
+
+// convert the XML tree to string
+const xml = root.end({ prettyPrint: true });
+fs.writeFileSync('tileset.tsx', xml);

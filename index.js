@@ -151,12 +151,18 @@ fs.writeFileSync('tileset.tsx', xml);
 
 // Convert maps to TMX
 
+// Prepare tileset data
+const tilesPerSourceIndex = Object.fromEntries(tileSetData.tiles.map(tile => [tile.sourceIndex, tile]));
+
 // Prepare map data
 const mapData = world.levels.map(({ tileData }, levelIndex) => ({ 
 	levelNumber: levelIndex + 1,
 	width: tileData[0].length,
 	height: tileData.length,
-	map: tileData
+	map: tileData.map(row => row.map(cell => {
+		if (cell <= 1) return cell;
+		return tilesPerSourceIndex[cell - 1].targetIndex;
+	}))
 }));
 
 for (const { levelNumber, width, height, map } of mapData) {

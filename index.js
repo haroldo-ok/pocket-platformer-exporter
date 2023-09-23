@@ -38,7 +38,7 @@ const tileSetData = Object.entries(sprites)
 	.map(([key, { animation, ...rest }]) => ({ 
 		metaData: { key, ...rest }, 
 		frames: animation.map(animation => 
-			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16))))
+			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16) || 0)))
 	}))
 	.reduce(({ sourceTileCount, targetTileCount, tiles }, tile) => ({
 		sourceTileCount: sourceTileCount + 1,
@@ -58,6 +58,7 @@ const Jimp = require('jimp');
 
 const TILESET_WIDTH_TILES = 32;
 const IMAGE_NAME = 'spritesheet.png';
+const TILESET_NAME = 'tileset.tsx';
 
 // See https://stackoverflow.com/a/42635011/679240
 const imageWidth = TILESET_WIDTH_TILES * 8;
@@ -87,7 +88,7 @@ let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 });
 
 
-// Convert tileset to TMX
+// Convert tileset to TSX
 
 const xmlbuilder2 = require('xmlbuilder2');
 
@@ -146,3 +147,56 @@ tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
 // convert the XML tree to string
 const xml = root.end({ prettyPrint: true });
 fs.writeFileSync('tileset.tsx', xml);
+
+
+// Convert maps to TMX
+
+// Prepare tileset data
+const tilesPerName = Object.fromEntries(tileSetData.tiles.map(tile => [tile.metaData.name, tile]));
+
+// Prepare map data
+const mapData = world.levels.map(({ tileData }, levelIndex) => ({ 
+	levelNumber: levelIndex + 1,
+	width: tileData[0].length,
+	height: tileData.length,
+	map: tileData.map(row => row.map(cell => {
+		if (!cell) return 0;
+		
+		const cellName = cell === 1 ? 'edge' : cell;
+		const tile = tilesPerName[cellName];
+		return tile ? tile.targetIndex + 1 : 0;
+	}))
+}));
+
+for (const { levelNumber, width, height, map } of mapData) {
+	const mapRoot = xmlbuilder2.create({ version: '1.0' })
+		.ele('map', { 
+			version: 1.5,
+			tiledversion: '2021.03.23',
+			orientation: 'orthogonal',
+			renderorder: 'right-down',
+			width,
+			height,
+			tilewidth: 8,
+			tileheight: 8,
+			infinite: 0,
+			nextlayerid: 4,
+			nextobjectid: 22
+		});
+		
+	mapRoot.ele('tileset', { firstgid: 1, source: TILESET_NAME });		
+
+	mapRoot
+		.ele('layer', {
+			id: 1,
+			name: 'Map',
+			width,
+			height		
+		})
+		.ele('data', { encoding: 'csv' })
+		.txt('\n' + map.map(row => row.join(',')).join(',\n') + '\n');
+
+	// convert the XML tree to string
+	const mapXml = mapRoot.end({ prettyPrint: true });
+	fs.writeFileSync(`level${levelNumber}.tmx`, mapXml);
+}

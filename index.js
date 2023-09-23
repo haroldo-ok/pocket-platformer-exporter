@@ -152,7 +152,7 @@ fs.writeFileSync('tileset.tsx', xml);
 // Convert maps to TMX
 
 // Prepare tileset data
-const tilesPerSourceIndex = Object.fromEntries(tileSetData.tiles.map(tile => [tile.sourceIndex, tile]));
+const tilesPerName = Object.fromEntries(tileSetData.tiles.map(tile => [tile.metaData.name, tile]));
 
 // Prepare map data
 const mapData = world.levels.map(({ tileData }, levelIndex) => ({ 
@@ -160,8 +160,11 @@ const mapData = world.levels.map(({ tileData }, levelIndex) => ({
 	width: tileData[0].length,
 	height: tileData.length,
 	map: tileData.map(row => row.map(cell => {
-		if (cell <= 1) return cell;
-		return tilesPerSourceIndex[cell - 1].targetIndex;
+		if (!cell) return 0;
+		
+		const cellName = cell === 1 ? 'edge' : cell;
+		const tile = tilesPerName[cellName];
+		return tile ? tile.targetIndex + 1 : 0;
 	}))
 }));
 

@@ -174,9 +174,7 @@ const mapData = world.levels.map(({ tileData, levelObjects }, levelIndex) => ({
 	}))
 }));
 
-console.log(mapData[1]);
-
-for (const { levelNumber, width, height, map } of mapData) {
+for (const { levelNumber, width, height, map, objects } of mapData) {
 	const mapRoot = xmlbuilder2.create({ version: '1.0' })
 		.ele('map', { 
 			version: 1.5,
@@ -203,6 +201,19 @@ for (const { levelNumber, width, height, map } of mapData) {
 		})
 		.ele('data', { encoding: 'csv' })
 		.txt('\n' + map.map(row => row.join(',')).join(',\n') + '\n');
+		
+	if (objects.length) {
+		const objectgroupRoot = mapRoot.ele('objectgroup', { id: 2, name: "Objects" });
+		objects.forEach(({ id, type, gid, x, y, extraAttributes }) => {
+			const objectRoot = objectgroupRoot.ele('object', { 
+				id, type, gid, 
+				x: x * 8, 
+				y: (y + 1) * 8, 
+				width: 8, 
+				height: 8 
+			});
+		});
+	}
 
 	// convert the XML tree to string
 	const mapXml = mapRoot.end({ prettyPrint: true });

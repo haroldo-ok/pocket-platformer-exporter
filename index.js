@@ -155,7 +155,7 @@ fs.writeFileSync('tileset.tsx', xml);
 const tilesPerName = Object.fromEntries(tileSetData.tiles.map(tile => [tile.metaData.name, tile]));
 
 // Prepare map data
-const mapData = world.levels.map(({ tileData }, levelIndex) => ({ 
+const mapData = world.levels.map(({ tileData, levelObjects }, levelIndex) => ({ 
 	levelNumber: levelIndex + 1,
 	width: tileData[0].length,
 	height: tileData.length,
@@ -165,8 +165,16 @@ const mapData = world.levels.map(({ tileData }, levelIndex) => ({
 		const cellName = cell === 1 ? 'edge' : cell;
 		const tile = tilesPerName[cellName];
 		return tile ? tile.targetIndex + 1 : 0;
+	})),
+	objects: (levelObjects || []).map(({ type, ...rest }, objectIndex) => ({
+		id: objectIndex + 2,
+		type,
+		gid: (tilesPerName[type] || {}).targetIndex + 1,
+		...rest,
 	}))
 }));
+
+console.log(mapData[1]);
 
 for (const { levelNumber, width, height, map } of mapData) {
 	const mapRoot = xmlbuilder2.create({ version: '1.0' })

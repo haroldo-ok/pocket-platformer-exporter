@@ -212,6 +212,10 @@ for (const { levelNumber, width, height, map, objects } of mapData) {
 				width: 8, 
 				height: 8 
 			});
+			
+			if (extraAttributes && Object.keys(extraAttributes).length) {
+				fillProperties(objectRoot, extraAttributes);
+			}
 		});
 	}
 

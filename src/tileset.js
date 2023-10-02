@@ -2,21 +2,29 @@
 
 const TILESET_WIDTH_TILES = 32;
 
-const prepareTileSetData = ({ sprites }) => Object.entries(sprites)
-	.map(([key, { animation, ...rest }]) => ({ 
-		metaData: { key, ...rest }, 
-		frames: animation.map(animation => 
-			animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16) || 0)))
-	}))
-	.reduce(({ sourceTileCount, targetTileCount, tiles }, tile) => ({
-		sourceTileCount: sourceTileCount + 1,
-		targetTileCount: targetTileCount + tile.frames.length,
-		tiles: [...tiles, { 
-			...tile,
-			sourceIndex: sourceTileCount,
-			targetIndex: targetTileCount
-		}]
-	}), { sourceTileCount: 0, targetTileCount: 0, tiles: [] });
+const prepareTileSetData = ({ sprites }) => {
+	const tileData = Object.entries(sprites)
+		.map(([key, { animation, ...rest }]) => ({ 
+			metaData: { key, ...rest }, 
+			frames: animation.map(animation => 
+				animation.sprite.map(linePixels => linePixels.map(rgb => parseInt(rgb + 'FF', 16) || 0)))
+		}))
+		.reduce(({ sourceTileCount, targetTileCount, tiles }, tile) => ({
+			sourceTileCount: sourceTileCount + 1,
+			targetTileCount: targetTileCount + tile.frames.length,
+			tiles: [...tiles, { 
+				...tile,
+				sourceIndex: sourceTileCount,
+				targetIndex: targetTileCount
+			}]
+		}), { sourceTileCount: 0, targetTileCount: 0, tiles: [] });
+		
+	return { 
+		...tileData,
+		imageWidth: TILESET_WIDTH_TILES * 8,
+		imageHeight: Math.ceil(tileData.targetTileCount / TILESET_WIDTH_TILES) * 8
+	};
+};
 	
 	
 const generateTileSetImage = async ({ sprites }) => {
@@ -28,8 +36,8 @@ const generateTileSetImage = async ({ sprites }) => {
 
 	return new Promise((resolve, reject) => {
 		// See https://stackoverflow.com/a/42635011/679240	
-		const imageWidth = TILESET_WIDTH_TILES * 8;
-		const imageHeight = Math.ceil(tileSetData.targetTileCount / TILESET_WIDTH_TILES) * 8;
+		const imageWidth = tileSetData.imageWidth;
+		const imageHeight = tileSetData.imageHeight;
 		let image = new Jimp(imageWidth, imageHeight, function (err, image) {
 			if (err) throw err;
 

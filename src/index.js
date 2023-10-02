@@ -2,7 +2,7 @@ const fs = require('fs');
 const stringify = require('json-stringify-pretty-compact');
 
 const { parsePocketPlatformer } = require('./parse');
-const { prepareTileSetData } = require('./tileset');
+const { prepareTileSetData, generateTileSetImage } = require('./tileset');
 
 	
 const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
@@ -21,38 +21,11 @@ const tileSetData = prepareTileSetData({ sprites });
 
 // Convert tileset to image
 
-const Jimp = require('jimp');
-
 const TILESET_WIDTH_TILES = 32;
 const IMAGE_NAME = 'spritesheet.png';
 const TILESET_NAME = 'tileset.tsx';
 
-// See https://stackoverflow.com/a/42635011/679240
-const imageWidth = TILESET_WIDTH_TILES * 8;
-const imageHeight = Math.ceil(tileSetData.targetTileCount / TILESET_WIDTH_TILES) * 8;
-let image = new Jimp(imageWidth, imageHeight, function (err, image) {
-	if (err) throw err;
-
-	tileSetData.tiles.forEach(({ targetIndex, frames }) => {
-		frames.forEach((frame, frameNumber) => {
-			const tileNumber = targetIndex + frameNumber;
-			const offset = {
-				x: (tileNumber % TILESET_WIDTH_TILES) * 8,
-				y: Math.floor(tileNumber / TILESET_WIDTH_TILES) * 8
-			};
-			
-			frame.forEach((row, y) => {
-				row.forEach((color, x) => {
-				  image.setPixelColor(color, x + offset.x, y + offset.y);
-				});
-			});
-		});				
-	});
-
-	image.write(IMAGE_NAME, (err) => {
-		if (err) throw err;
-	});
-});
+generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync(IMAGE_NAME, buffer));
 
 
 // Convert tileset to TSX
@@ -90,8 +63,8 @@ fillProperties(root, Object.fromEntries(imageProperties));
 
 root.ele('image', {
 	source: IMAGE_NAME, 
-	width: imageWidth, 
-	height: imageHeight
+	width: tileSetData.imageWidth, 
+	height: tileSetData.imageHeight
 });
 
 tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {

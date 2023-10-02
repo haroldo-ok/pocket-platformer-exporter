@@ -21,5 +21,8 @@
     "json-stringify-pretty-compact": "^3.0.0",
     "xmlbuilder2": "^3.1.1",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

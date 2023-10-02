@@ -21,7 +21,7 @@ test('generate a PNG image from the sprite data', async () => {
 });
 
 test('generate a Tiled TSX tileset from the sprite data', async () => {
-	const tileSet = await generateTiledTileSet(JSON_SOURCE, { filePrefix: 'spritesheet' });
+	const tileSet = await generateTiledTileSet(JSON_SOURCE, { filePrefix: 'example-project' });
 	
 	expect(tileSet).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.tsx'), 'utf8'));
 });

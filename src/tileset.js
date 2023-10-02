@@ -28,11 +28,11 @@ const prepareTileSetData = ({ sprites }) => {
 	
 	
 const generateTileSetImage = async ({ sprites }) => {
+	const Jimp = require('jimp');
+
 	const tileSetData = prepareTileSetData({ sprites });
 	
 	// Convert tileset to image
-
-	const Jimp = require('jimp');
 
 	return new Promise((resolve, reject) => {
 		// See https://stackoverflow.com/a/42635011/679240	
@@ -66,4 +66,67 @@ const generateTileSetImage = async ({ sprites }) => {
 
 };
 
-module.exports = { prepareTileSetData, generateTileSetImage };
+const generateTiledTileSet = async ({ world, sprites, player }, { filePrefix }) => {
+	const xmlbuilder2 = require('xmlbuilder2');
+	
+	const tileSetData = prepareTileSetData({ sprites });
+
+	const fillProperties = (baseElement, properties) => {
+		const propertiesElement = baseElement.ele('properties');
+		Object.entries(properties).forEach(([name, value]) => {
+			const type = 
+				typeof value === 'boolean' ? 'bool' :
+				typeof value === 'number' ? 'float' :
+				undefined;
+
+			propertiesElement.ele('property', { name, type, value });
+		});
+	};
+
+	const root = xmlbuilder2.create({ version: '1.0' })
+		.ele('tileset', { 
+			version: 1.5, 
+			tiledversion: '2021.03.23', 
+			name: 'tileset', 
+			tilewidth: 8, 
+			tileheight: 8, 
+			tilecount: tileSetData.targetTileCount, 
+			columns: TILESET_WIDTH_TILES
+		});
+		
+	const imageProperties = [
+		...Object.entries(world).filter(([k]) => k !== 'levels').map(([k, v]) => [`world.${k}`, v]),
+		...Object.entries(player).map(([k, v]) => [`player.${k}`, v])
+	];
+	fillProperties(root, Object.fromEntries(imageProperties));
+
+	root.ele('image', {
+		source: `${filePrefix}.png`, 
+		width: tileSetData.imageWidth, 
+		height: tileSetData.imageHeight
+	});
+
+	tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
+		const tileElement = root.ele('tile', { id: targetIndex });
+
+		fillProperties(tileElement, metaData);
+		
+		if (frames.length > 1) {
+			const animationElement = tileElement.ele('animation');
+			frames.forEach((frame, frameNumber) => {
+				animationElement.ele('frame', {
+					tileid: targetIndex + frameNumber, 
+					duration: 100
+				});		
+			});
+		}
+	});
+
+
+	// convert the XML tree to string
+	const xml = root.end({ prettyPrint: true });
+	
+	return xml;
+}
+
+module.exports = { prepareTileSetData, generateTileSetImage, generateTiledTileSet };

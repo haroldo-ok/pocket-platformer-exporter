@@ -103,5 +103,16 @@ const generateTiledMap = (project, levelData, { filePrefix }) => {
 	return mapXml;
 };
 
+const generateTiledMaps = (project, options) => {
+	const levelsData = prepareLevelsData(project);
+	return levelsData.map(levelData => {
+		const data = generateTiledMap(project, levelData, options);
+		return {
+			name: `${options.filePrefix}.level-${levelData.levelNumber}.tmx`,
+			data
+		};
+	});
+};
 
-module.exports = { prepareLevelData, prepareLevelsData, generateTiledMap };
+
+module.exports = { prepareLevelData, prepareLevelsData, generateTiledMap, generateTiledMaps };

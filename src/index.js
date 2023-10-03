@@ -3,6 +3,7 @@ const stringify = require('json-stringify-pretty-compact');
 
 const { parsePocketPlatformer } = require('./parse');
 const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
+const { prepareLevelsData } = require('./map');
 
 	
 const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
@@ -54,24 +55,7 @@ generateTiledTileSet({ world, sprites, player }, { filePrefix: 'spritesheet' })
 const tilesPerName = Object.fromEntries(tileSetData.tiles.map(tile => [tile.metaData.name, tile]));
 
 // Prepare map data
-const mapData = world.levels.map(({ tileData, levelObjects }, levelIndex) => ({ 
-	levelNumber: levelIndex + 1,
-	width: tileData[0].length,
-	height: tileData.length,
-	map: tileData.map(row => row.map(cell => {
-		if (!cell) return 0;
-		
-		const cellName = cell === 1 ? 'edge' : cell;
-		const tile = tilesPerName[cellName];
-		return tile ? tile.targetIndex + 1 : 0;
-	})),
-	objects: (levelObjects || []).map(({ type, ...rest }, objectIndex) => ({
-		id: objectIndex + 2,
-		type,
-		gid: (tilesPerName[type] || {}).targetIndex + 1,
-		...rest,
-	}))
-}));
+const mapData = prepareLevelsData({ world, sprites });
 
 for (const { levelNumber, width, height, map, objects } of mapData) {
 	const mapRoot = xmlbuilder2.create({ version: '1.0' })

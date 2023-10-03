@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { prepareLevelData } = require('./map');
+const { prepareLevelData, prepareLevelsData } = require('./map');
 
 const JSON_SOURCE = require('./mocks/example-project.json');
 
@@ -12,4 +12,11 @@ test('convert the data of a single level into a convenient structure for using i
 	
 	expect(levelData).toBeTruthy();
 	expect(levelData.levelNumber).toBe(3);
+});
+
+test('convert the data of all the levels into a convenient structure for using in other steps', () => {
+	const levelsData = prepareLevelsData(JSON_SOURCE);
+	
+	expect(levelsData.length).toBe(4);
+	expect(levelsData[2].levelNumber).toBe(3);
 });

@@ -25,4 +25,7 @@ const prepareLevelData = ({ sprites }, { tileData, levelObjects }, levelIndex) =
 	};
 };
 
-module.exports = { prepareLevelData };
+const prepareLevelsData = ({ sprites, world }) => world.levels.map(
+	(level, levelIndex) => prepareLevelData({ sprites }, level, levelIndex));
+
+module.exports = { prepareLevelData, prepareLevelsData };

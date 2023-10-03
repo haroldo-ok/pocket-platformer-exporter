@@ -2,7 +2,7 @@ const fs = require('fs');
 const stringify = require('json-stringify-pretty-compact');
 
 const { parsePocketPlatformer } = require('./parse');
-const { prepareTileSetData, generateTileSetImage } = require('./tileset');
+const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
 
 	
 const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
@@ -44,49 +44,8 @@ const fillProperties = (baseElement, properties) => {
 	});
 };
 
-const root = xmlbuilder2.create({ version: '1.0' })
-	.ele('tileset', { 
-		version: 1.5, 
-		tiledversion: '2021.03.23', 
-		name: 'tileset', 
-		tilewidth: 8, 
-		tileheight: 8, 
-		tilecount: tileSetData.targetTileCount, 
-		columns: TILESET_WIDTH_TILES
-	});
-	
-const imageProperties = [
-	...Object.entries(world).filter(([k]) => k !== 'levels').map(([k, v]) => [`world.${k}`, v]),
-	...Object.entries(player).map(([k, v]) => [`player.${k}`, v])
-];
-fillProperties(root, Object.fromEntries(imageProperties));
-
-root.ele('image', {
-	source: IMAGE_NAME, 
-	width: tileSetData.imageWidth, 
-	height: tileSetData.imageHeight
-});
-
-tileSetData.tiles.forEach(({ targetIndex, metaData, frames }) => {
-	const tileElement = root.ele('tile', { id: targetIndex });
-
-	fillProperties(tileElement, metaData);
-	
-	if (frames.length > 1) {
-		const animationElement = tileElement.ele('animation');
-		frames.forEach((frame, frameNumber) => {
-			animationElement.ele('frame', {
-				tileid: targetIndex + frameNumber, 
-				duration: 100
-			});		
-		});
-	}
-});
-
-
-// convert the XML tree to string
-const xml = root.end({ prettyPrint: true });
-fs.writeFileSync('tileset.tsx', xml);
+generateTiledTileSet({ world, sprites, player }, { filePrefix: 'spritesheet' })
+	.then(xml => fs.writeFileSync('tileset.tsx', xml));
 
 
 // Convert maps to TMX

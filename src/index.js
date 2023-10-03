@@ -2,7 +2,7 @@ const fs = require('fs');
 const stringify = require('json-stringify-pretty-compact');
 
 const { parsePocketPlatformer } = require('./parse');
-const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
+const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
 
 	
@@ -15,35 +15,12 @@ fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLe
 console.log('See "generated.json"');
 
 
-// Prepare tileset for conversion
-const tileSetData = prepareTileSetData({ sprites });
-
-
-
 // Convert tileset to image
 
-const TILESET_WIDTH_TILES = 32;
-const IMAGE_NAME = 'example-project.png';
-const TILESET_NAME = 'tileset.tsx';
-
-generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync(IMAGE_NAME, buffer));
+generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync('example-project.png', buffer));
 
 
 // Convert tileset to TSX
-
-const xmlbuilder2 = require('xmlbuilder2');
-
-const fillProperties = (baseElement, properties) => {
-	const propertiesElement = baseElement.ele('properties');
-	Object.entries(properties).forEach(([name, value]) => {
-		const type = 
-			typeof value === 'boolean' ? 'bool' :
-			typeof value === 'number' ? 'float' :
-			undefined;
-
-		propertiesElement.ele('property', { name, type, value });
-	});
-};
 
 generateTiledTileSet({ world, sprites, player }, { filePrefix: 'example-project' })
 	.then(xml => fs.writeFileSync('example-project.tsx', xml));

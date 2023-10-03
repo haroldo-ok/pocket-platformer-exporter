@@ -30,7 +30,7 @@ const prepareLevelsData = ({ sprites, world }) => world.levels.map(
 	(level, levelIndex) => prepareLevelData({ sprites }, level, levelIndex));
 	
 	
-const generateTiledMap = (project, level, levelIndex, { filePrefix }) => {
+const generateTiledMap = (project, levelData, { filePrefix }) => {
 	const xmlbuilder2 = require('xmlbuilder2');
 
 	const fillProperties = (baseElement, properties) => {
@@ -50,7 +50,7 @@ const generateTiledMap = (project, level, levelIndex, { filePrefix }) => {
 	const tilesPerName = Object.fromEntries(tileSetData.tiles.map(tile => [tile.metaData.name, tile]));
 
 	// Prepare map data
-	const { levelNumber, width, height, map, objects } = prepareLevelData(project, level, 2);
+	const { levelNumber, width, height, map, objects } = levelData;
 	
 	// Generate the XML
 

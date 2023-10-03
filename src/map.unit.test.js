@@ -22,7 +22,8 @@ test('convert the data of all the levels into a convenient structure for using i
 });
 
 test('generate a Tiled TMX from the data for a single level', async () => {
-	const map = generateTiledMap(JSON_SOURCE, JSON_SOURCE.world.levels[2], 2, { filePrefix: 'example-project' });
+	const levelData = prepareLevelData(JSON_SOURCE, JSON_SOURCE.world.levels[2], 2);
+	const map = generateTiledMap(JSON_SOURCE, levelData, { filePrefix: 'example-project' });
 	
 	expect(map).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.level-3.tmx'), 'utf8'));
 });

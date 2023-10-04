@@ -32,4 +32,7 @@ const removeWhenDone = () => {
 		.forEach(({name, data}) => fs.writeFileSync(name, data));
 }
 
-module.exports = { parsePocketPlatformer };
+const parseToObject = async (htmlContent) => parsePocketPlatformer(htmlContent);
+const convertToJson = async (htmlContent) => stringify(await parseToObject(htmlContent), { maxLength: 160 }); 
+
+module.exports = { parseToObject, convertToJson };

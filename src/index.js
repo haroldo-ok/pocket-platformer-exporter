@@ -1,6 +1,7 @@
 const fs = require('fs');
 const stringify = require('json-stringify-pretty-compact');
 
+const { readText, writeText } = require('./file');
 const { parsePocketPlatformer } = require('./parse');
 const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
@@ -35,4 +36,10 @@ const removeWhenDone = () => {
 const parseToObject = async (htmlContent) => parsePocketPlatformer(htmlContent);
 const convertToJson = async (htmlContent) => stringify(await parseToObject(htmlContent), { maxLength: 160 }); 
 
-module.exports = { parseToObject, convertToJson };
+const saveToJson = async (htmlPath, jsonPath) => {
+	const html = await readText(htmlPath);
+	const json = await convertToJson(html);
+	await writeText(jsonPath, json);
+};
+
+module.exports = { parseToObject, convertToJson, saveToJson };

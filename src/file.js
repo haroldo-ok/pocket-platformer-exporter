@@ -3,10 +3,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const readBinaryResource = async (suffix) =>
-	fs.promises.readFile(path.join(__dirname, suffix));
+const readBinary = async (filePath) => fs.promises.readFile(filePath);
+const readBinaryResource = async (suffix) => readBinary(path.join(__dirname, suffix));
+const writeBinary = async (filePath, data) => fs.promises.writeFile(filePath, data);
 
-const readTextResource = async (suffix) =>
-	fs.promises.readFile(path.join(__dirname, suffix), 'utf8');
+const readText = async (filePath) => fs.promises.readFile(filePath, 'utf8');
+const readTextResource = async (suffix) => readText(path.join(__dirname, suffix));
+const writeText = async (filePath, data) => fs.promises.writeFile(filePath, data, 'utf8');
 	
-module.exports = { readBinaryResource, readTextResource };
+module.exports = { 
+	readBinary, readBinaryResource, writeBinary,
+	readText, readTextResource, writeText
+};

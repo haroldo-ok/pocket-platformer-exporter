@@ -109,7 +109,8 @@ const generateTiledMaps = (project, options) => {
 		const data = generateTiledMap(project, levelData, options);
 		return {
 			name: `${options.filePrefix}.level-${levelData.levelNumber}.tmx`,
-			data
+			data,
+			isBinary: false
 		};
 	});
 };

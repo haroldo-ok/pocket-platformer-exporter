@@ -42,4 +42,16 @@ const saveToJson = async (htmlPath, jsonPath) => {
 	await writeText(jsonPath, json);
 };
 
-module.exports = { parseToObject, convertToJson, saveToJson };
+const convertToTiled = async (htmlContent, options) => {
+	const project = await parseToObject(htmlContent);
+	const image = await generateTileSetImage(project);
+	const tileSet = await generateTiledTileSet(project, options);
+	const maps = await generateTiledMaps(project, options);
+	return [
+		{ name: `${options.filePrefix}.png`, data: image, isBinary: true },
+		{ name: `${options.filePrefix}.tsx`, data: tileSet, isBinary: false },
+		...maps
+	];
+};
+
+module.exports = { parseToObject, convertToJson, saveToJson, convertToTiled };

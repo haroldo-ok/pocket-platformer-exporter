@@ -4,7 +4,10 @@
 
 const fs = require('fs');
 
-const { parseToObject, convertToJson, saveToJson } = require('./src');
+const { 
+	parseToObject, convertToJson, saveToJson, 
+	convertToTiled
+} = require('./src');
 
 /* if called directly from command line or from a shell script */
 if (require.main === module) {
@@ -61,4 +64,7 @@ if (require.main === module) {
 	}
 }
 
-module.exports = { parseToObject, convertToJson };
+module.exports = { 
+	parseToObject, convertToJson, saveToJson, 
+	convertToTiled
+};

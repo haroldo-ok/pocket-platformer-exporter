@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const { 
 	parseToObject, convertToJson, saveToJson, 
-	convertToTiled
+	convertToTiled, saveToTiled
 } = require('./src');
 
 /* if called directly from command line or from a shell script */
@@ -60,11 +60,11 @@ if (require.main === module) {
 		saveToJson(commandLine.src, commandLine.dest);
 	}
 	if (commandLine._.includes('tiled')) {
-		// TODO
+		saveToTiled(commandLine.src, commandLine.dest);
 	}
 }
 
 module.exports = { 
 	parseToObject, convertToJson, saveToJson, 
-	convertToTiled
+	convertToTiled, saveToTiled
 };

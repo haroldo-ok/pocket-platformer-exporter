@@ -1,7 +1,8 @@
 const fs = require('fs');
+const path = require('path');
 const stringify = require('json-stringify-pretty-compact');
 
-const { readText, writeText } = require('./file');
+const { readText, writeText, writeBinary } = require('./file');
 const { parsePocketPlatformer } = require('./parse');
 const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
@@ -54,4 +55,23 @@ const convertToTiled = async (htmlContent, options) => {
 	];
 };
 
-module.exports = { parseToObject, convertToJson, saveToJson, convertToTiled };
+const saveToTiled = async (htmlPath, targetDir, options = {}) => {
+	const cleanOptions = {
+		...options,
+		filePrefix: options.filePrefix || path.parse(htmlPath).name
+	};
+	
+	const html = await readText(htmlPath);
+	const files = await convertToTiled(html, cleanOptions);
+	
+	for (const { name, data, isBinary } of files) {
+		const fullName = path.join(targetDir, name);
+		if (isBinary) {
+			await writeBinary(fullName, data);
+		} else {
+			await writeText(fullName, data);
+		}
+	}
+};
+
+module.exports = { parseToObject, convertToJson, saveToJson, saveToTiled };

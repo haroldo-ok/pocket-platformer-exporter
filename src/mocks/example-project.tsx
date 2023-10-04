@@ -20,7 +20,7 @@
     <property name="player.dashChecked" type="bool" value="false"/>
     <property name="player.runChecked" type="bool" value="false"/>
   </properties>
-  <image source="spritesheet.png" width="256" height="32"/>
+  <image source="example-project.png" width="256" height="32"/>
   <tile id="0">
     <properties>
       <property name="key" value="TILE_1"/>

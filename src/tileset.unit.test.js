@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { prepareTileSetData, generateTileSetImage } = require('./tileset');
+const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
 
 const JSON_SOURCE = require('./mocks/example-project.json');
 
@@ -18,4 +18,10 @@ test('generate a PNG image from the sprite data', async () => {
 	
 	expect(Buffer.isBuffer(imageBuffer)).toBeTruthy();
 	expect(imageBuffer).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.png')));
+});
+
+test('generate a Tiled TSX tileset from the sprite data', async () => {
+	const tileSet = await generateTiledTileSet(JSON_SOURCE, { filePrefix: 'example-project' });
+	
+	expect(tileSet).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.tsx'), 'utf8'));
 });

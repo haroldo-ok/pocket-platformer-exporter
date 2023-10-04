@@ -28,7 +28,36 @@ npm install
 ## Usage
 
 ```sh
-aaaaaaaa
+pocket-platformer-exporter <cmd> [args]
+
+Commands:
+  pocket-platformer-exporter json <src>     Converts a Pocket Platformer project
+  <dest>                                    into a JSON file.
+  pocket-platformer-exporter tiled <src>    Converts a Pocket Platformer project
+  <dest>                                    into a Tiled project.
+
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
+  
+
+pocket-platformer-exporter json <src> <dest>
+
+Converts a Pocket Platformer project into a JSON file.
+
+Positionals:
+  src   The source video, the one that will be converted     [string] [required]
+  dest  The name of the JSON file that will be generated.    [string] [required]
+  
+
+pocket-platformer-exporter tiled <src> <dest>
+
+Converts a Pocket Platformer project into a Tiled project.
+
+Positionals:
+  src   The source video, the one that will be converted     [string] [required]
+  dest  The name of either the directory where the Tiled project will be
+        generated.                                           [string] [required]
 ```
 
 ## Run tests

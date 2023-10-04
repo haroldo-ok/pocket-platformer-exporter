@@ -5,28 +5,31 @@ const { parsePocketPlatformer } = require('./parse');
 const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
 
-	
-const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
+const removeWhenDone = () => {	
+	const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
 
-const { world, sprites, player } = parsePocketPlatformer(exampleHtml);
+	const { world, sprites, player } = parsePocketPlatformer(exampleHtml);
 
-fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLength: 160 }));
-	
-console.log('See "generated.json"');
-
-
-// Convert tileset to image
-
-generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync('example-project.png', buffer));
+	fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLength: 160 }));
+		
+	console.log('See "generated.json"');
 
 
-// Convert tileset to TSX
+	// Convert tileset to image
 
-generateTiledTileSet({ world, sprites, player }, { filePrefix: 'example-project' })
-	.then(xml => fs.writeFileSync('example-project.tsx', xml));
+	generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync('example-project.png', buffer));
 
 
-// Convert maps to TMX
+	// Convert tileset to TSX
 
-generateTiledMaps({ world, sprites }, { filePrefix: 'example-project' })
-	.forEach(({name, data}) => fs.writeFileSync(name, data));
+	generateTiledTileSet({ world, sprites, player }, { filePrefix: 'example-project' })
+		.then(xml => fs.writeFileSync('example-project.tsx', xml));
+
+
+	// Convert maps to TMX
+
+	generateTiledMaps({ world, sprites }, { filePrefix: 'example-project' })
+		.forEach(({name, data}) => fs.writeFileSync(name, data));
+}
+
+module.exports = { parsePocketPlatformer };

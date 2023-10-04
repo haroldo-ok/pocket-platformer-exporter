@@ -1,32 +1,51 @@
 const fs = require('fs');
+const path = require('path');
 const stringify = require('json-stringify-pretty-compact');
 
+const { readText, writeText, writeBinary } = require('./file');
 const { parsePocketPlatformer } = require('./parse');
 const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
 
+
+const parseToObject = async (htmlContent) => parsePocketPlatformer(htmlContent);
+const convertToJson = async (htmlContent) => stringify(await parseToObject(htmlContent), { maxLength: 160 }); 
+
+const saveToJson = async (htmlPath, jsonPath) => {
+	const html = await readText(htmlPath);
+	const json = await convertToJson(html);
+	await writeText(jsonPath, json);
+};
+
+const convertToTiled = async (htmlContent, options) => {
+	const project = await parseToObject(htmlContent);
+	const image = await generateTileSetImage(project);
+	const tileSet = await generateTiledTileSet(project, options);
+	const maps = await generateTiledMaps(project, options);
+	return [
+		{ name: `${options.filePrefix}.png`, data: image, isBinary: true },
+		{ name: `${options.filePrefix}.tsx`, data: tileSet, isBinary: false },
+		...maps
+	];
+};
+
+const saveToTiled = async (htmlPath, targetDir, options = {}) => {
+	const cleanOptions = {
+		...options,
+		filePrefix: options.filePrefix || path.parse(htmlPath).name
+	};
 	
-const exampleHtml = fs.readFileSync('src/mocks/example-project.html', 'utf8');
-
-const { world, sprites, player } = parsePocketPlatformer(exampleHtml);
-
-fs.writeFileSync('generated.json', stringify({ world, sprites, player }, { maxLength: 160 }));
+	const html = await readText(htmlPath);
+	const files = await convertToTiled(html, cleanOptions);
 	
-console.log('See "generated.json"');
+	for (const { name, data, isBinary } of files) {
+		const fullName = path.join(targetDir, name);
+		if (isBinary) {
+			await writeBinary(fullName, data);
+		} else {
+			await writeText(fullName, data);
+		}
+	}
+};
 
-
-// Convert tileset to image
-
-generateTileSetImage({ sprites }).then(buffer => fs.writeFileSync('example-project.png', buffer));
-
-
-// Convert tileset to TSX
-
-generateTiledTileSet({ world, sprites, player }, { filePrefix: 'example-project' })
-	.then(xml => fs.writeFileSync('example-project.tsx', xml));
-
-
-// Convert maps to TMX
-
-generateTiledMaps({ world, sprites }, { filePrefix: 'example-project' })
-	.forEach(({name, data}) => fs.writeFileSync(name, data));
+module.exports = { parseToObject, convertToJson, saveToJson, convertToTiled, saveToTiled };

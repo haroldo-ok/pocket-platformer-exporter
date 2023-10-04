@@ -1,8 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
+const { readBinaryResource, readTextResource } = require('./file');
 const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
 
 const JSON_SOURCE = require('./mocks/example-project.json');
@@ -17,11 +15,11 @@ test('generate a PNG image from the sprite data', async () => {
 	const imageBuffer = await generateTileSetImage(JSON_SOURCE);
 	
 	expect(Buffer.isBuffer(imageBuffer)).toBeTruthy();
-	expect(imageBuffer).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.png')));
+	expect(imageBuffer).toEqual(await readBinaryResource('mocks/example-project.png'));
 });
 
 test('generate a Tiled TSX tileset from the sprite data', async () => {
 	const tileSet = await generateTiledTileSet(JSON_SOURCE, { filePrefix: 'example-project' });
 	
-	expect(tileSet).toEqual(await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.tsx'), 'utf8'));
+	expect(tileSet).toEqual(await readTextResource('mocks/example-project.tsx'));
 });

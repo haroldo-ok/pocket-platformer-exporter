@@ -2,8 +2,12 @@
 
 'use strict';
 
-const convertToJson = () => { throw new Error("TODO: not implemented yet.") };
-const convertToTiled = () => { throw new Error("TODO: not implemented yet.") };
+const fs = require('fs');
+
+const { 
+	parseToObject, convertToJson, saveToJson, 
+	convertToTiled, saveToTiled
+} = require('./src');
 
 /* if called directly from command line or from a shell script */
 if (require.main === module) {
@@ -53,11 +57,14 @@ if (require.main === module) {
 		.argv;		
 		
 	if (commandLine._.includes('json')) {
-		// TODO
+		saveToJson(commandLine.src, commandLine.dest);
 	}
 	if (commandLine._.includes('tiled')) {
-		// TODO
+		saveToTiled(commandLine.src, commandLine.dest);
 	}
 }
 
-module.exports = { convertPocketPlatformer };
+module.exports = { 
+	parseToObject, convertToJson, saveToJson, 
+	convertToTiled, saveToTiled
+};

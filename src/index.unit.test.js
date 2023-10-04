@@ -1,12 +1,10 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
+const { readTextResource } = require('./file');
 const { parsePocketPlatformer } = require('./index');
 
 test('parse the PP file', async () => {
-	const source = await fs.promises.readFile(path.join(__dirname, 'mocks/example-project.html'), 'utf8');
+	const source = await readTextResource('mocks/example-project.html');
 	
 	const { world, sprites, player } = parsePocketPlatformer(source);
 	

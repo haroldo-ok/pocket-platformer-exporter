@@ -46,7 +46,7 @@ pocket-platformer-exporter json <src> <dest>
 Converts a Pocket Platformer project into a JSON file.
 
 Positionals:
-  src   The source video, the one that will be converted     [string] [required]
+  src   The source Pocket Platformer HTML, the one that will be converted     [string] [required]
   dest  The name of the JSON file that will be generated.    [string] [required]
   
 
@@ -55,9 +55,13 @@ pocket-platformer-exporter tiled <src> <dest>
 Converts a Pocket Platformer project into a Tiled project.
 
 Positionals:
-  src   The source video, the one that will be converted     [string] [required]
+  src   The source Pocket Platformer HTML, the one that will be converted     [string] [required]
   dest  The name of either the directory where the Tiled project will be
         generated.                                           [string] [required]
+
+Options:
+  --zip      Compress the exported files into a ZIP file.
+                                                      [boolean] [default: false]
 ```
 
 ## Run tests
@@ -89,3 +93,7 @@ This project is [MIT](https://github.com/haroldo-ok/pocket-platformer-exporter/b
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
+```
+
+```

@@ -1,6 +1,6 @@
 {
   "name": "pocket-platformer-exporter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Converts html files exported by pocket-platformer (https://the-l0bster.itch.io/pocket-platformer) into formats that should be more easily exported to other engines. ",
   "main": "index.js",
   "scripts": {

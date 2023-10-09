@@ -6,7 +6,8 @@ const fs = require('fs');
 
 const { 
 	parseToObject, convertToJson, saveToJson, 
-	convertToTiled, saveToTiled
+	convertToTiled, saveToTiled, 
+	convertToTiledZip, saveToTiledZip
 } = require('./src');
 
 /* if called directly from command line or from a shell script */
@@ -43,6 +44,13 @@ if (require.main === module) {
 					type: 'string',
 					describe: 'The name of either the directory where the Tiled project will be generated.'
 				})
+				.options({
+					'zip': {
+						describe: 'Compress the exported files into a ZIP file.',
+						default: false,
+						type: 'boolean'
+					}
+				})
 				.check((argv, options) => {
 					if (!fs.existsSync(argv.src)) {
 						return `The provided Pocket Platformer file does not exist: ${argv.src}`;
@@ -60,11 +68,16 @@ if (require.main === module) {
 		saveToJson(commandLine.src, commandLine.dest);
 	}
 	if (commandLine._.includes('tiled')) {
-		saveToTiled(commandLine.src, commandLine.dest);
+		if (commandLine.zip) {
+			saveToTiledZip(commandLine.src, commandLine.dest);
+		} else {
+			saveToTiled(commandLine.src, commandLine.dest);
+		}
 	}
 }
 
 module.exports = { 
 	parseToObject, convertToJson, saveToJson, 
-	convertToTiled, saveToTiled
+	convertToTiled, saveToTiled,
+	convertToTiledZip, saveToTiledZip
 };

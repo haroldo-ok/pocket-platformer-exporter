@@ -56,9 +56,21 @@ const convertToTiledZip = async (htmlContent, options) =>  {
 	return await compressFilesToZip(files);
 };
 
+const saveToTiledZip = async (htmlPath, targetZip, options = {}) => {
+	const cleanOptions = {
+		...options,
+		filePrefix: options.filePrefix || path.parse(htmlPath).name
+	};
+	
+	const html = await readText(htmlPath);
+	const zipBuffer = await convertToTiledZip(html, cleanOptions);
+	
+	await writeBinary(targetZip, zipBuffer);
+};
+
 
 module.exports = { 
 	parseToObject, convertToJson, saveToJson, 
 	convertToTiled, saveToTiled,
-	convertToTiledZip
+	convertToTiledZip, saveToTiledZip
 };

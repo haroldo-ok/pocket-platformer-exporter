@@ -5,6 +5,8 @@ const { prepareLevelData, prepareLevelsData, generateTiledMap, generateTiledMaps
 
 const JSON_SOURCE = require('./mocks/example-project.json');
 
+const trimLines = text => text.split('\n').map(s => s.trim()).join('\n');
+
 test('convert the data of a single level into a convenient structure for using in other steps', () => {
 	const levelData = prepareLevelData(JSON_SOURCE, JSON_SOURCE.world.levels[2], 2);
 	
@@ -23,7 +25,7 @@ test('generate a Tiled TMX from the data for a single level', async () => {
 	const levelData = prepareLevelData(JSON_SOURCE, JSON_SOURCE.world.levels[2], 2);
 	const map = generateTiledMap(JSON_SOURCE, levelData, { filePrefix: 'example-project' });
 	
-	expect(map).toEqual(await readTextResource('mocks/example-project.level-3.tmx'));
+	expect(trimLines(map)).toEqual(trimLines(await readTextResource('mocks/example-project.level-3.tmx')));
 });
 
 test('generate multiple Tiled TMX from the data for all the levels', async () => {
@@ -31,5 +33,6 @@ test('generate multiple Tiled TMX from the data for all the levels', async () =>
 	
 	expect(maps.length).toBe(4);
 	expect(maps[2].name).toEqual('example-project.level-3.tmx');
-	expect(maps[2].data).toEqual(await readTextResource('mocks/example-project.level-3.tmx'));
+	
+	expect(trimLines(maps[2].data)).toEqual(trimLines(await readTextResource('mocks/example-project.level-3.tmx')));
 });

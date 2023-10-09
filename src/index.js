@@ -6,6 +6,7 @@ const { readText, writeText, writeBinary } = require('./file');
 const { parsePocketPlatformer } = require('./parse');
 const { generateTileSetImage, generateTiledTileSet } = require('./tileset');
 const { generateTiledMaps } = require('./map');
+const { compressFilesToZip } = require('./zip');
 
 
 const parseToObject = async (htmlContent) => parsePocketPlatformer(htmlContent);
@@ -16,6 +17,7 @@ const saveToJson = async (htmlPath, jsonPath) => {
 	const json = await convertToJson(html);
 	await writeText(jsonPath, json);
 };
+
 
 const convertToTiled = async (htmlContent, options) => {
 	const project = await parseToObject(htmlContent);
@@ -48,4 +50,27 @@ const saveToTiled = async (htmlPath, targetDir, options = {}) => {
 	}
 };
 
-module.exports = { parseToObject, convertToJson, saveToJson, convertToTiled, saveToTiled };
+
+const convertToTiledZip = async (htmlContent, options) =>  {
+	const files = await convertToTiled(htmlContent, options);
+	return await compressFilesToZip(files);
+};
+
+const saveToTiledZip = async (htmlPath, targetZip, options = {}) => {
+	const cleanOptions = {
+		...options,
+		filePrefix: options.filePrefix || path.parse(htmlPath).name
+	};
+	
+	const html = await readText(htmlPath);
+	const zipBuffer = await convertToTiledZip(html, cleanOptions);
+	
+	await writeBinary(targetZip, zipBuffer);
+};
+
+
+module.exports = { 
+	parseToObject, convertToJson, saveToJson, 
+	convertToTiled, saveToTiled,
+	convertToTiledZip, saveToTiledZip
+};

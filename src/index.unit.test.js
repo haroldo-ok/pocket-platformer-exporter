@@ -1,7 +1,8 @@
 'use strict';
 
 const { readTextResource } = require('./file');
-const { parseToObject, convertToJson, convertToTiled } = require('./index');
+const { trimLines } = require('./util');
+const { parseToObject, convertToJson, convertToTiled, convertToTiledZip } = require('./index');
 
 test('parse the PP file', async () => {
 	const source = await readTextResource('mocks/example-project.html');
@@ -18,10 +19,10 @@ test('convert the PP file as JSON', async () => {
 
 	const json = await convertToJson(source);
 	
-	expect(json).toEqual(await readTextResource('mocks/example-project.json'));
+	expect(trimLines(json)).toEqual(trimLines(await readTextResource('mocks/example-project.json')));
 });
 
-test('convert the PP file into an array representing the generated Tiled filed', async () => {
+test('convert the PP file into an array representing the generated Tiled files', async () => {
 	const source = await readTextResource('mocks/example-project.html');
 
 	const files = await convertToTiled(source, { filePrefix: 'example-project' });
@@ -35,4 +36,12 @@ test('convert the PP file into an array representing the generated Tiled filed',
 		'example-project.level-3.tmx', 
 		'example-project.level-4.tmx'
 	]);
+});
+
+test('convert the PP file into a Buffer representing a ZIP with the generated Tiled files', async () => {
+	const source = await readTextResource('mocks/example-project.html');
+
+	const zipBuffer = await convertToTiledZip(source, { filePrefix: 'example-project' });
+	
+	expect(Buffer.isBuffer(zipBuffer)).toBe(true);
 });

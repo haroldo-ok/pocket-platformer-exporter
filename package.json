@@ -1,6 +1,6 @@
 {
   "name": "pocket-platformer-exporter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Converts html files exported by pocket-platformer (https://the-l0bster.itch.io/pocket-platformer) into formats that should be more easily exported to other engines. ",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme",
   "dependencies": {
+    "adm-zip": "^0.5.10",
     "jimp": "^0.22.10",
     "json-stringify-pretty-compact": "^3.0.0",
     "xmlbuilder2": "^3.1.1",

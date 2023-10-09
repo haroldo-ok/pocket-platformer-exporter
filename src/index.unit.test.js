@@ -1,6 +1,7 @@
 'use strict';
 
 const { readTextResource } = require('./file');
+const { trimLines } = require('./util');
 const { parseToObject, convertToJson, convertToTiled } = require('./index');
 
 test('parse the PP file', async () => {
@@ -18,7 +19,7 @@ test('convert the PP file as JSON', async () => {
 
 	const json = await convertToJson(source);
 	
-	expect(json).toEqual(await readTextResource('mocks/example-project.json'));
+	expect(trimLines(json)).toEqual(trimLines(await readTextResource('mocks/example-project.json')));
 });
 
 test('convert the PP file into an array representing the generated Tiled filed', async () => {

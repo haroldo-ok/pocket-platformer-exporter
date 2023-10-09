@@ -1,11 +1,10 @@
 'use strict';
 
 const { readTextResource } = require('./file');
+const { trimLines } = require('./util');
 const { prepareLevelData, prepareLevelsData, generateTiledMap, generateTiledMaps } = require('./map');
 
 const JSON_SOURCE = require('./mocks/example-project.json');
-
-const trimLines = text => text.split('\n').map(s => s.trim()).join('\n');
 
 test('convert the data of a single level into a convenient structure for using in other steps', () => {
 	const levelData = prepareLevelData(JSON_SOURCE, JSON_SOURCE.world.levels[2], 2);

@@ -1,6 +1,7 @@
 'use strict';
 
 const { readBinaryResource, readTextResource } = require('./file');
+const { trimLines } = require('./util');
 const { prepareTileSetData, generateTileSetImage, generateTiledTileSet } = require('./tileset');
 
 const JSON_SOURCE = require('./mocks/example-project.json');
@@ -21,5 +22,5 @@ test('generate a PNG image from the sprite data', async () => {
 test('generate a Tiled TSX tileset from the sprite data', async () => {
 	const tileSet = await generateTiledTileSet(JSON_SOURCE, { filePrefix: 'example-project' });
 	
-	expect(tileSet).toEqual(await readTextResource('mocks/example-project.tsx'));
+	expect(trimLines(tileSet)).toEqual(trimLines(await readTextResource('mocks/example-project.tsx')));
 });

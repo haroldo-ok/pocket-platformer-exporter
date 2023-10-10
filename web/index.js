@@ -30,6 +30,11 @@ const getFileContents = () => new Promise((resolve, reject) => {
 	}
 });
 
-$.on('#convertToJson', 'click', () => getFileContents().then(htmlContent => console.log('HTML to convert', htmlContent)).catch(showError));
+$.on('#convertToJson', 'click', () => 
+	getFileContents()
+	.then(convertToJson)
+	.then(json => console.log('Converted JSON', json))
+	.catch(showError));
+
 $.on('#convertToTiled', 'click', () => alert('Convert Tiled!'));
 

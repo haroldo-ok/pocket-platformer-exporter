@@ -1,5 +1,6 @@
 'use strict';
 
+const FileSaver = require('file-saver');
 const { convertToJson, convertToTiledZip } = require('../');
 
 const isString = o => typeof o === 'string';
@@ -33,7 +34,10 @@ const getFileContents = () => new Promise((resolve, reject) => {
 $.on('#convertToJson', 'click', () => 
 	getFileContents()
 	.then(convertToJson)
-	.then(json => console.log('Converted JSON', json))
+	.then(json => {
+		const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
+		FileSaver.saveAs(blob, 'pocket-platformer.json');
+	})
 	.catch(showError));
 
 $.on('#convertToTiled', 'click', () => alert('Convert Tiled!'));

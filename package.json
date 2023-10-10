@@ -19,6 +19,7 @@
   "homepage": "https://github.com/haroldo-ok/pocket-platformer-exporter#readme",
   "dependencies": {
     "adm-zip": "^0.5.10",
+    "file-saver": "^2.0.5",
     "jimp": "^0.22.10",
     "json-stringify-pretty-compact": "^3.0.0",
     "original-fs": "^1.2.0",

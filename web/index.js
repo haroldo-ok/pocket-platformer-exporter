@@ -40,5 +40,12 @@ $.on('#convertToJson', 'click', () =>
 	})
 	.catch(showError));
 
-$.on('#convertToTiled', 'click', () => alert('Convert Tiled!'));
+$.on('#convertToTiled', 'click', () =>
+	getFileContents()
+	.then(convertToTiledZip)
+	.then(zipBuffer => {
+		const blob = new Blob([zipBuffer], { type: 'application/zip' });
+		FileSaver.saveAs(blob, 'pocket-platformer.tiled.zip');
+	})
+	.catch(showError));
 

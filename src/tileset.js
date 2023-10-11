@@ -28,7 +28,8 @@ const prepareTileSetData = ({ sprites }) => {
 	
 	
 const generateTileSetImage = async ({ sprites }) => {
-	const Jimp = require('jimp');
+	// Workaround for "Jimp is not a constructor", when running from browser
+	const Jimp = typeof window === 'undefined' || !window.Jimp ? require('jimp') : window.Jimp;
 
 	const tileSetData = prepareTileSetData({ sprites });
 	

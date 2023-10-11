@@ -43874,7 +43874,8 @@ const prepareTileSetData = ({ sprites }) => {
 	
 	
 const generateTileSetImage = async ({ sprites }) => {
-	const Jimp = require('jimp');
+	// Workaround for "Jimp is not a constructor", when running from browser
+	const Jimp = typeof window === 'undefined' || !window.Jimp ? require('jimp') : window.Jimp;
 
 	const tileSetData = prepareTileSetData({ sprites });
 	
@@ -44040,7 +44041,7 @@ $.on('#convertToJson', 'click', () =>
 
 $.on('#convertToTiled', 'click', () =>
 	getFileContents()
-	.then(convertToTiledZip)
+	.then(htmlContent => convertToTiledZip(htmlContent, { filePrefix: 'pocket-platformer' }))
 	.then(zipBuffer => {
 		const blob = new Blob([zipBuffer], { type: 'application/zip' });
 		FileSaver.saveAs(blob, 'pocket-platformer.tiled.zip');

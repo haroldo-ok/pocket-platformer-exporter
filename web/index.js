@@ -42,7 +42,7 @@ $.on('#convertToJson', 'click', () =>
 
 $.on('#convertToTiled', 'click', () =>
 	getFileContents()
-	.then(convertToTiledZip)
+	.then(htmlContent => convertToTiledZip(htmlContent, { filePrefix: 'pocket-platformer' }))
 	.then(zipBuffer => {
 		const blob = new Blob([zipBuffer], { type: 'application/zip' });
 		FileSaver.saveAs(blob, 'pocket-platformer.tiled.zip');
